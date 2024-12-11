@@ -12,6 +12,7 @@ html{
         border-radius: 20px;
         overflow: hidden;
         /*border: 1px solid #000;  Optional: keeps borders visible */
+        }
         body {
             font-family: Trebuchet, sans-serif;
             font-size: 90%;
