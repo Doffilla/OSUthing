@@ -47,7 +47,7 @@ html{
             color: white;
             border-radius: 0px;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* Ensures the bar is hidden until hovered */
         }
         
         button span {
@@ -56,16 +56,16 @@ html{
         }
         
         button::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 5px;
-          background-color: #ff9900;
-          transform: scaleY(0);
-          transform-origin: bottom right;
-          transition: transform 0.3s ease;
+            content: "";
+            position: absolute;
+            bottom: -3px; /* Position the bar just below the button */
+            left: 0;
+            width: 100%;
+            height: 3px; /* Height of the yellow bar */
+            background-color: yellow;
+            transform: scaleY(0); /* Initially hide the yellow bar vertically */
+            transform-origin: bottom; /* Start growing the bar from the bottom */
+            transition: transform 0.3s ease; /* Smooth animation for the yellow bar */
         }
         
         button:hover span {
@@ -73,7 +73,7 @@ html{
         }
         
         button:hover::after {
-            transform: scaleY(1); /* Expands the yellow bar when hovered */
+            transform: scaleY(1); /* Expands the yellow bar vertically when hovered */
         }
         .result {
             margin-top: 20px;
