@@ -9,7 +9,7 @@ html{
           background-color: grey;
         }
         table td {
-        border-radius: 8px;
+        border-radius: 20px;
         overflow: hidden;
         /*border: 1px solid #000;  Optional: keeps borders visible */
         }
