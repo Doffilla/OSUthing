@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Seat Randomizer</h1>
+        <h1>Seat andomizer</h1>
         <hr />
         <h4>Built for OSU by David Ernst & Josef Ernst, assisted by MS Copilot.</h4>
         <div>
@@ -86,7 +86,7 @@
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
             for (const [student, seat] of Object.entries(seatAssignments)) {
-                resultDiv.innerHTML += ${student} — Seat: ${seat}</br>;
+                resultDiv.innerHTML += `${student} — Seat: ${seat}</br>`;
             }
         }
     </script>
