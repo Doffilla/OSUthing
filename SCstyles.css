@@ -14,16 +14,16 @@ html{
         border: 1px solid #000;  Optional: keeps borders visible
         }
         body {
-            font-family: Trebuchet, sans-serif;
-            font-size: 90%;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            height: 100vh;
-            background-color: grey;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+          font-family: Trebuchet, sans-serif;
+          font-size: 90%;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          height: 100vh;
+          background-color: grey;
+          margin: 0;
+          padding: 20px;
+          box-sizing: border-box;
         }
         .container {
             text-align: left;
