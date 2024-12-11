@@ -14,7 +14,7 @@
     <div class="container">
         <h1>Seat Randomizer</h1>
         <hr />
-        <h4>Built for OSU by David W. Ernst & Josef D Ernst, assisted by MS Copilot.</h4>
+        <h4>Built for OSU by David W. Ernst & Josef D. Ernst, assisted by MS Copilot.</h4>
         <div>
             <h3>Room Capacity</h3>
             <label for="totalSeats">Total seats available: </label>
@@ -97,13 +97,19 @@
                     row = table.insertRow();
                 }
 
-                const cell = row.insertCell();
-                cell.style.border = '1px solid #000';
-                cell.style.padding = '8px';
-                cell.style.textAlign = 'center';
-                cell.innerHTML = `${student} — Seat: ${seat}`;
+                const studentCell = row.insertCell();
+                studentCell.style.border = '1px solid #000';
+                studentCell.style.padding = '8px';
+                studentCell.style.textAlign = 'center';
+                studentCell.innerHTML = student;
 
-                cellIndex = (cellIndex + 1) % 4;
+                const seatCell = row.insertCell();
+                seatCell.style.border = '1px solid #000';
+                seatCell.style.padding = '8px';
+                seatCell.style.textAlign = 'center';
+                seatCell.innerHTML = seat;
+
+                cellIndex = (cellIndex + 2) % 8;
             });
 
             resultDiv.appendChild(table);
