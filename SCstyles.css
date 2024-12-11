@@ -37,35 +37,39 @@ html{
             max-width: 600px;
         }
         button {
-          float: right;
-          font-family: 'Arvo', serif;
-          padding: 10px 20px;
-          font-size: 100%;
-          cursor: pointer;
-          border: none;
-          background-color: #e65300;
-          color: white;
-          border-radius: 0px;
-          position: relative; /* This is important for positioning the yellow bar */
-          overflow: hidden; /* Ensures the bar is hidden until hovered */
-          transition: padding 0.3s ease, transform 0.3s ease; /* Smooth transition for padding and text movement */
+            float: right;
+            font-family: 'Arvo', serif;
+            padding: 10px 20px;
+            font-size: 100%;
+            cursor: pointer;
+            border: none;
+            background-color: #e65300;
+            color: white;
+            border-radius: 0px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button span {
+            display: inline-block;
+            transition: transform 0.3s ease; /* Smooth transition for the text movement */
         }
         
         button::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px; /* Height of the yellow bar */
-            background-color: yellow;
-            transform: scaleX(0); /* Initially hide the yellow bar */
-            transform-origin: bottom right; /* Start the bar from the right */
-            transition: transform 0.3s ease; /* Smooth animation for the yellow bar */
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 3px; /* Height of the yellow bar */
+          background-color: yellow;
+          transform: scaleX(0); /* Initially hide the yellow bar */
+          transform-origin: bottom right;
+          transition: transform 0.3s ease; /* Smooth animation for the yellow bar */
         }
         
-        button:hover {
-            transform: translateY(-5px); /* Moves the text up when hovered */
+        button:hover span {
+            transform: translateY(-5px); /* Moves only the text up when hovered */
         }
         
         button:hover::after {
