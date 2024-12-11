@@ -1,41 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<!--Seating Chart built by David Ernst & Josef Ernst, assisted by MS Copilot-->
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
-    <link rel="Stylesheet" type="text/css" href="SCstyles.css" />
-    <title>Seat Number Randomizer</title>
-    
-</head>
-<body>
-    <div class="container">
-        <h1>Seat Randomizer</h1>
-        <hr />
-        <h4>Built for OSU by David W. Ernst & Josef D. Ernst, assisted by MS Copilot.</h4>
-        <div>
-            <h3>Room Capacity</h3>
-            <label for="totalSeats">Total seats available: </label>
-            <input type="number" id="totalSeats" value="10" min="1" max="999">
-        </div>
-        </br>
-        <h3>Student list</h3> 
-        <p>Enter student names. <em>One per line.</em></p>
-        <textarea id="studentNames" placeholder="e.g.: Smith, John (or John Smith)"></textarea>
-        
-        <div>
-          <h3>Reserve Seats</h3> 
-            <label for="reservedSeats">Reserve seats by listing "Name:Seat" (One per line): </label>
-            <textarea id="reservedSeats" placeholder="e.g.: Smith, John:10 (or Jane Doe:25)(or Faculty:76)"></textarea>
-        </div>
-        <button onclick="assignSeats()">Assign Seats</button>
-        <div class="result" id="result"></div>
-    </div>
-    
-    <script>
+<script>
         function assignSeats() {
             const studentNames = document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name);
             const totalSeats = parseInt(document.getElementById('totalSeats').value);
@@ -84,11 +47,9 @@
 
         function displayResults(seatAssignments) {
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
+            resultDiv.innerHTML = '<h2>Seat Assignments</h2>';
             for (const [student, seat] of Object.entries(seatAssignments)) {
-                resultDiv.innerHTML += ${student} — Seat: ${seat}</br>;
+                resultDiv.innerHTML += ${student} Seat: ${seat}</br>;
             }
         }
     </script>
-</body>
-</html>
