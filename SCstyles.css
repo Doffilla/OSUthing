@@ -47,33 +47,33 @@ html{
             color: white;
             border-radius: 0px;
             position: relative;
-            overflow: hidden; /* Ensures the bar is hidden until hovered */
+            overflow: hidden;
         }
         
         button span {
             display: inline-block;
-            transition: transform 0.3s ease; /* Smooth transition for the text movement */
+            transition: transform 0.3s ease;
         }
         
         button::after {
             content: "";
             position: absolute;
-            bottom: -3px; /* Position the bar just below the button */
+            bottom: -3px;
             left: 0;
             width: 100%;
-            height: 3px; /* Height of the yellow bar */
-            background-color: yellow;
-            transform: scaleY(0); /* Initially hide the yellow bar vertically */
-            transform-origin: bottom; /* Start growing the bar from the bottom */
-            transition: transform 0.3s ease; /* Smooth animation for the yellow bar */
+            height: 3px;
+            background-color: #ff9900;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
         }
         
         button:hover span {
-            transform: translateY(-5px); /* Moves only the text up when hovered */
+            transform: translateY(-5px);
         }
         
         button:hover::after {
-            transform: scaleY(1); /* Expands the yellow bar vertically when hovered */
+            transform: scaleY(1);
         }
         .result {
             margin-top: 20px;
