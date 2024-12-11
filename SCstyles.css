@@ -2,11 +2,11 @@ html{
                 font-size: 1em;
         }
         table tr:nth-child(even) {
-          background-color: orange;
+          background-color: rgb(254, 92, 0, 255);
         }
 
         table tr:nth-child(odd) {
-          background-color: grey;
+          background-color: rgb(67, 67, 67, 255);
         }
         table td {
         border-radius: 20px;
