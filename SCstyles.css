@@ -1,6 +1,18 @@
 html{
                 font-size: 1em;
         }
+        table tr:nth-child(even) {
+          background-color: orange;
+        }
+
+        table tr:nth-child(odd) {
+          background-color: grey;
+        }
+        table td {
+        border-radius: 8px;
+        overflow: hidden;
+        /*border: 1px solid #000;  Optional: keeps borders visible */
+        }
         body {
             font-family: Trebuchet, sans-serif;
             font-size: 90%;
