@@ -37,43 +37,39 @@ html{
             max-width: 600px;
         }
         button {
-            float: right;
-            font-family: 'Arvo', serif;
-            padding: 10px 20px;
-            font-size: 100%;
-            cursor: pointer;
-            border: none;
-            background-color: #e65300;
-            color: white;
-            border-radius: 0px;
-            position: relative;
-            overflow: hidden;
+          float: right;
+          font-family: 'Arvo', serif;
+          padding: 10px 20px;
+          font-size: 100%;
+          cursor: pointer;
+          border: none;
+          background-color: #e65300;
+          color: white;
+          border-radius: 0px;
+          position: relative;
+          overflow: hidden; /* Ensures the bar is hidden until hovered */
         }
         
         button span {
             display: inline-block;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; /* Smooth transition for the text movement */
         }
         
         button::after {
             content: "";
             position: absolute;
-            bottom: -5px;
+            bottom: -3px; /* Position the bar just below the button */
             left: 0;
             width: 100%;
-            height: 5px;
-            background-color: #ff9900;
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.3s ease;
+            height: 3px; /* Height of the yellow bar */
+            background-color: yellow;
+            transform: scaleY(0); /* Initially hide the yellow bar vertically */
+            transform-origin: bottom; /* Start growing the bar from the bottom */
+            transition: transform 0.3s ease; /* Smooth animation for the yellow bar */
         }
         
         button:hover span {
-            transform: translateY(-5px);
-        }
-        
-        button:hover::after {
-            transform: scaleY(1);
+            transform: translateY(-5px); /* Moves only the text up when hovered */
         }
         .result {
             margin-top: 20px;
