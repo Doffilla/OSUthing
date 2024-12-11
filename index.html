@@ -9,7 +9,6 @@
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
     <link rel="Stylesheet" type="text/css" href="SCstyles.css" />
     <title>Seat Number Randomizer</title>
-    
 </head>
 <body>
     <div class="container">
@@ -21,13 +20,13 @@
             <label for="totalSeats">Total seats available: </label>
             <input type="number" id="totalSeats" value="10" min="1" max="999">
         </div>
-        </br>
+        <br />
         <h3>Student list</h3> 
         <p>Enter student names. <em>One per line.</em></p>
         <textarea id="studentNames" placeholder="e.g.: Smith, John (or John Smith)"></textarea>
         
         <div>
-          <h3>Reserve Seats</h3> 
+            <h3>Reserve Seats</h3> 
             <label for="reservedSeats">Reserve seats by listing "Name:Seat" (One per line): </label>
             <textarea id="reservedSeats" placeholder="e.g.: Smith, John:10 (or Jane Doe:25)(or Faculty:76)"></textarea>
         </div>
@@ -85,9 +84,29 @@
         function displayResults(seatAssignments) {
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
-            for (const [student, seat] of Object.entries(seatAssignments)) {
-                resultDiv.innerHTML += `${student} — Seat: ${seat}</br>`;
-            }
+
+            const table = document.createElement('table');
+            table.style.width = '100%';
+            table.style.borderCollapse = 'collapse';
+
+            let row;
+            let cellIndex = 0;
+
+            Object.entries(seatAssignments).forEach(([student, seat], index) => {
+                if (cellIndex === 0) {
+                    row = table.insertRow();
+                }
+
+                const cell = row.insertCell();
+                cell.style.border = '1px solid #000';
+                cell.style.padding = '8px';
+                cell.style.textAlign = 'center';
+                cell.innerHTML = `${student} — Seat: ${seat}`;
+
+                cellIndex = (cellIndex + 1) % 4;
+            });
+
+            resultDiv.appendChild(table);
         }
     </script>
 </body>
