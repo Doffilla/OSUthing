@@ -43,35 +43,35 @@ html{
           font-size: 100%;
           cursor: pointer;
           border: none;
-          background-color: #e65300;
+          background-color: #e65000;
           color: white;
           border-radius: 0px;
           position: relative;
-          overflow: hidden; /* Ensures the bar is hidden until hovered */
+          overflow: hidden;
         }
         
         button span {
             display: inline-block;
-            transition: transform 0.3s ease; /* Smooth transition for the text movement */
+            transition: transform 0.3s ease;
         }
         
         button::after {
             content: "";
             position: absolute;
-            bottom: 0; /* Position the bar at the bottom */
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 0; /* Initially no height */
+            height: 0;
             background-color: yellow;
-            transition: height 0.3s ease; /* Smooth transition for the yellow bar's height */
+            transition: height 0.3s ease;
         }
         
         button:hover span {
-            transform: translateY(-5px); /* Moves only the text up when hovered */
+            transform: translateY(-5px);
         }
         
         button:hover::after {
-            height: 3px; /* Expands the yellow bar vertically when hovered */
+            height: 3px;
         }
         .result {
             margin-top: 20px;
