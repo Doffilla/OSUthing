@@ -9,27 +9,24 @@ html{
           background-color: grey;
         }
         table td {
-        border-radius: 8px;
+        border-radius: 20px;
         overflow: hidden;
         /*border: 1px solid #000;  Optional: keeps borders visible */
-        }
         body {
-          font-family: Trebuchet, sans-serif;
-          font-size: 90%;
-          display: flex;
-          justify-content: center;
-          align-items: flex-start;
-          height: 100vh;
-          background: url("C:\Users\Josef D. Ernst\Documents\pete.jpg") no-repeat center center fixed;
-          background-size: cover;
-          margin: 0;
-          padding: 20px;
-          box-sizing: border-box;
-          color: #000;
-        }  
-      
+            font-family: Trebuchet, sans-serif;
+            font-size: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: grey;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            text-align: left;
+            background: #f2f2f2;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
