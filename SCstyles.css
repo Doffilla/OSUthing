@@ -20,16 +20,16 @@ html{
           justify-content: center;
           align-items: flex-start;
           height: 100vh;
-          background: url('your-image-path.jpg') no-repeat center center fixed; /* Replace 'your-image-path.jpg' with your background image */
+          background: url("C:\Users\Josef D. Ernst\Documents\pete.jpg") no-repeat center center fixed;
           background-size: cover;
           margin: 0;
           padding: 20px;
           box-sizing: border-box;
-          color: #000; /* Ensure text is readable against the background */
+          color: #000;
         }  
       
         .container {
-            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
