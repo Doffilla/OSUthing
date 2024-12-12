@@ -12,16 +12,14 @@
         }
         table tr:nth-child(even) {
           background-color: rgb(254, 92, 0, 255);
+          border-radius: 20px;
         }
 
         table tr:nth-child(odd) {
           background-color: #ff9900;
+          border-radius: 20px;
         }
-        table td {
-        border-radius: 20px;
-        overflow: hidden;
-        border: 1px solid #000;  Optional: keeps borders visible
-        }
+       
         body {
             height: 100vh;
             margin: 0;
