@@ -99,11 +99,11 @@
                 }
 
                 const cell = row.insertCell();
-                cell.style.border = '0px solid #000';
-                cell.style.padding = '8px';
-                cell.style.borderRadius = '5px';
+                cell.style.border = '1px solid #000';
+                /*cell.style.padding = '8px';*/
+                cell.style.borderRadius = '20px';
                 cell.style.textAlign = 'center';
-                cell.innerHTML = `${student}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seat: ${seat}`;
+                cell.innerHTML = `${student}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seat: ${seat}`;
 
                 cellIndex = (cellIndex + 2) % 4;
             });
