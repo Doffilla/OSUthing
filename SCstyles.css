@@ -13,11 +13,11 @@
         table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 40px;
+            border-spacing: 10px;
         }
         
         td {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             border: none;
             border-radius: 10px;
