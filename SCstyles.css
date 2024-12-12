@@ -10,7 +10,37 @@
             align-items: center;
             box-sizing: border-box;
         }
+        .container-columns {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
         
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between rows within a column */
+            width: 45%; /* Adjust width for the columns */
+            border-radius: 10px; /* Round corners */
+            border: 2px solid #ccc; /* Add a border around the columns */
+            padding: 10px;
+            background-color: #f9f9f9; /* Light background color */
+        }
+        
+        /* Style each student-seat pair as a row in the column */
+        .seat-pair {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            border-radius: 5px; /* Round corners for each row */
+            background-color: #e0e0e0; /* Light gray background for each row */
+            font-weight: bold;
+        }
+        
+        /* Style for better readability */
+        .seat-pair span {
+            margin-right: 10px; /* Small gap between name and seat */
+        }
         table {
             width: 100%;
             table-layout: fixed;
