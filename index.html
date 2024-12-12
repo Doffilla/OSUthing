@@ -102,7 +102,7 @@
             Object.entries(seatAssignments).forEach(([student, seat], idx) => {
                 const seatPair = document.createElement('div');
                 seatPair.classList.add('seat-pair');
-                seatPair.innerHTML = `<span>${student}</span><span>Seat ${seat}</span>`;
+                seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
         
                 // Alternate adding to column 1 and column 2
                 if (index % 2 === 0) {
