@@ -1,7 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!--Seating Chart built by David Ernst & Josef Ernst, assisted by MS Copilot-->
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +7,6 @@
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
     <link rel="Stylesheet" type="text/css" href="SCstyles.css" />
     <title>Seat Number Randomizer</title>
-    
 </head>
 <body>
     <div class="container">
@@ -32,6 +29,9 @@
             <textarea id="reservedSeats" placeholder="e.g.: Smith, John:10 (or Jane Doe:25)(or Faculty:76)"></textarea>
         </div>
         <button onclick="assignSeats()"><span>ASSIGN SEATS</span></button>
+        
+        <button id="printButton" onclick="printResults()" style="display: none;">Print</button>
+        
         <div class="result" id="result"></div>
     </div>
     
@@ -64,6 +64,8 @@
             });
 
             displayResults(seatAssignments);
+
+            document.getElementById('printButton').style.display = 'block';
         }
 
         function shuffleArray(array) {
@@ -86,11 +88,9 @@
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
         
-            // Create the container for two columns
             const container = document.createElement('div');
             container.classList.add('container-columns');
             
-            // Create two columns
             const column1 = document.createElement('div');
             column1.classList.add('column');
             const column2 = document.createElement('div');
@@ -98,13 +98,11 @@
             
             let index = 0;
             
-            // Split the seat assignments into two columns
             Object.entries(seatAssignments).forEach(([student, seat], idx) => {
                 const seatPair = document.createElement('div');
                 seatPair.classList.add('seat-pair');
                 seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
         
-                // Alternate adding to column 1 and column 2
                 if (index % 2 === 0) {
                     column1.appendChild(seatPair);
                 } else {
@@ -114,17 +112,31 @@
                 index++;
             });
         
-            // Append columns to the container
             container.appendChild(column1);
             container.appendChild(column2);
         
             resultDiv.appendChild(container);
         }
+
+        function printResults() {
+            const resultDiv = document.getElementById('result');
+            const printWindow = window.open('', '', 'height=600,width=800');
+            
+            printWindow.document.write('<html><head><title>Seat Assignments</title>');
+            printWindow.document.write('<style>body { font-family: Arial, sans-serif; }</style>');
+            printWindow.document.write('</head><body>');
+            
+            printWindow.document.write(resultDiv.innerHTML);
+            
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print(); 
+        }
     </script>
-    <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Developmentm — Oklahoma State University</h4>
+    
+    <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Development — Oklahoma State University</h4>
     <div id="footer">
         <img src="images/OSUblack.svg" width="75px" height="auto">
     </div>
 </body>
-    
 </html>
