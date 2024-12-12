@@ -12,10 +12,11 @@
         }
         .container-columns {
             display: flex;
-            gap: 30px;
+            gap: 20px; /* 30px gap between the two columns */
             justify-content: center;
         }
         
+        /* Style the individual columns */
         .column {
             display: flex;
             flex-direction: column;
@@ -33,49 +34,24 @@
             justify-content: space-between;
             padding: 5px;
             border-radius: 5px; /* Round corners for each row */
-            background-color: #e0e0e0; /* Light gray background for each row */
             font-weight: bold;
+        }
+        
+        /* Style for odd rows in each column */
+        .column .seat-pair:nth-child(odd) {
+            background-color: #e65300; /* Orange for odd rows */
+        }
+        
+        /* Style for even rows in each column */
+        .column .seat-pair:nth-child(even) {
+            background-color: #ff9900; /* Light orange for even rows */
         }
         
         /* Style for better readability */
         .seat-pair span {
             margin-right: 10px; /* Small gap between name and seat */
         }
-        table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-            border-radius: 10px; /* Keep rounded corners */
-            overflow: hidden;
-        }
-        
-        table td {
-            padding: 10px;
-            text-align: left; /* Align text to the left */
-            word-wrap: break-word; /* Ensure long names break properly */
-            display: block; /* Treat each cell as a block element to prevent height issues */
-            vertical-align: top; /* Align content to the top */
-        }
-        
-        table td:first-child {
-            width: 70%; /* Adjust the width for the student names */
-        }
-        
-        table td:last-child {
-            width: 30%; /* Adjust the width for seat numbers */
-        }        
-        
-        table td:last-child {
-            width: 30%;
-        }
 
-        tr:nth-child(odd) td {
-            background-color: #e65300;
-        }
-        
-        tr:nth-child(even) td {
-            background-color: #ff9900;
-        }
         body {
             height: 100vh;
             margin: 0;
