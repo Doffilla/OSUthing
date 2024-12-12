@@ -1,0 +1,127 @@
+html{
+            font-size: 1em;
+            font-size: 90%;
+            font-family: Trebuchet, sans-serif;
+            background-color: grey;
+            background: url(image/Dbars.svg) repeat-x, linear-gradient(#CBCBCB, #a8a8a8);
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            
+        }
+        #footer {
+            margin: -10px 20px;
+            float: right;
+        }
+        a:link  {
+            color: inherit;
+        }
+         a:hover  {
+            color: #FF7300;
+        }
+        a:visited  {
+            color: inherit;
+        }
+        a:active  {
+            color: #FF7300;
+        }
+        .container {
+            text-align: left;
+            background: #f2f2f2;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-height: 100%;
+            overflow-y: auto;
+            max-width: 600px;
+            min-width: 280px;
+            background-image: url('image/Pete.svg');
+            background-repeat: no-repeat;
+            background-position: 90% 10px;
+            background-size: 300px;
+        }
+        button {
+            float: right;
+            font-family: 'Arvo', serif;
+            padding: 10px 20px;
+            font-size: 130%;
+            cursor: pointer;
+            border: none;
+            background-color: #FF7300;
+            background-image: linear-gradient(50deg, #FF7300, #ff7e14, #FF7300);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #b35000;
+            background-image: linear-gradient(50deg, #b35000, #eb6a00, #eb6a00, #b35000);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: left;
+        }
+        textarea {
+            width: 98%;
+            height: 100px;
+            margin: 5px 25px 15px 0px;
+            padding: 5px;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #FF7300;
+            margin: 0px;
+        }
+        h1 {
+            margin: 0px; 
+            padding: 0px;
+            font-family: 'Arvo', serif;
+            font-size: 250%;
+            text-align: left;
+        }
+        h2 {
+            margin: 15px 0px 15px 0px; 
+            padding: 0px;
+            font-family: 'Arvo', serif;
+            font-size: 150%;
+            text-align: left;
+        }
+        h3 {
+            margin: 0px; 
+            padding: 0px;
+            font-family: 'Arvo', serif;
+            font-size: 130%;
+            text-align: left;
+        }
+        h4 {
+            font-weight: normal;
+            padding: 0px;
+            font-family: Trebuchet, sans-serif;
+            font-size: 80%;
+            text-align: right;
+            color: grey;
+            margin: 5px 0px 10px 0px;
+        }
+        
+        p {
+            font-weight: normal;
+            margin: 0px; 
+        }
+
+        #OEDlogo {
+        aligh-self: block;
+        margin: 0px 5px 0px 0px;
+        float: left;
+        }
