@@ -99,12 +99,13 @@
                 }
 
                 const cell = row.insertCell();
-                cell.style.border = '1px solid #000';
+                cell.style.border = '0px solid #000';
                 cell.style.padding = '8px';
+                cell.style.corner_radius = '8px';
                 cell.style.textAlign = 'center';
                 cell.innerHTML = `${student}`+`         Seat: ${seat}`;
 
-                cellIndex = (cellIndex + 1) % 2;
+                cellIndex = (cellIndex + 2) % 4;
             });
 
             resultDiv.appendChild(table);
