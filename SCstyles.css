@@ -52,7 +52,7 @@ html{
         
         button span {
             display: inline-block;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
         
         button::after {
@@ -63,7 +63,7 @@ html{
             width: 100%;
             height: 0;
             background-color: #ff9900;
-            transition: height 0.3s ease;
+            transition: height 0.2s ease;
         }
         
         button:hover span {
