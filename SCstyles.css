@@ -10,26 +10,25 @@
             align-items: center;
             box-sizing: border-box;
         }
-        table tr:nth-child(even) {
-          background-color: rgb(254, 92, 0, 255);
-          border-radius: 20px;
-        }
-
-        table tr:nth-child(odd) {
-          background-color: #ff9900;
-          border-radius: 20px;
-        }
         table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 10px;
+            border-spacing: 40px;
         }
         
         td {
-            padding: 10px;
+            padding: 20px;
             text-align: center;
             border: none;
             border-radius: 10px;
+        }
+        
+        tr:nth-child(odd) td {
+            background-color: #f4f4f4; /* Light gray for odd rows */
+        }
+        
+        tr:nth-child(even) td {
+            background-color: #e0e0e0; /* Slightly darker gray for even rows */
         }
         body {
             height: 100vh;
