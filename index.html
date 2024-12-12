@@ -82,14 +82,13 @@
             return distributedSeats;
         }
 
-       function displayResults(seatAssignments) {
-        const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
+        function displayResults(seatAssignments) {
+           const resultDiv = document.getElementById('result');
+           resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
     
-        const table = document.createElement('table');
-    
-        let row;
-        let cellIndex = 0;
+           const table = document.createElement('table');
+           let row;
+           let cellIndex = 0;
     
         Object.entries(seatAssignments).forEach(([student, seat], index) => {
             if (cellIndex === 0) {
@@ -97,8 +96,12 @@
             }
     
             const cell = row.insertCell();
-            cell.innerHTML = `${student}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seat ${seat}`;
-            cellIndex = (cellIndex + 2) % 4;
+            cell.innerHTML = `${student}`;
+            cellIndex = (cellIndex + 1) % 2;
+    
+            const seatCell = row.insertCell();
+            seatCell.innerHTML = `Seat ${seat}`;
+            cellIndex = (cellIndex + 1) % 2;
         });
     
         resultDiv.appendChild(table);
