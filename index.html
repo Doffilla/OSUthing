@@ -9,25 +9,26 @@
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
     <link rel="Stylesheet" type="text/css" href="SCstyles.css" />
     <title>Seat Number Randomizer</title>
+    
 </head>
 <body>
     <div class="container">
-        <h1>Seat Randomizer</h1>
+        <img id="OEDlogo" src="image/OEDlogo.svg" width="auto" height="50px">
+        <h1>Seat Randomizer</h1>  
         <hr />
-        <h4>Built for OSU by David W. Ernst & Josef D. Ernst, assisted by MS Copilot.</h4>
+        <h4>Built for OSU by <a href="https://www.linkedin.com/in/david-w-ernst">David W. Ernst</a> & <a href="josefdernst@gmail.com">Josef D. Ernst</a>, assisted by <a href="https://copilot.microsoft.com/">MS Copilot.</a></h4>
         <div>
             <h3>Room Capacity</h3>
             <label for="totalSeats">Total seats available: </label>
             <input type="number" id="totalSeats" value="10" min="1" max="999">
         </div>
-        <br />
+        </br>
         <h3>Student list</h3> 
-        <p>Enter student names. <em>One per line.</em></p>
+        <p>Enter student names. (One per line.)</p>
         <textarea id="studentNames" placeholder="e.g.: Smith, John (or John Smith)"></textarea>
-        
         <div>
-            <h3>Reserve Seats</h3> 
-            <label for="reservedSeats">Reserve seats by listing "Name:Seat" (One per line): </label>
+          <h3>Reserve Seats</h3> 
+            <label for="reservedSeats">Reserve seats by listing "Name:#" (One per line): </label>
             <textarea id="reservedSeats" placeholder="e.g.: Smith, John:10 (or Jane Doe:25)(or Faculty:76)"></textarea>
         </div>
         <button onclick="assignSeats()"><span>Assign Seats</span></button>
@@ -81,7 +82,7 @@
             return distributedSeats;
         }
 
-        function displayResults(seatAssignments) {
+       function displayResults(seatAssignments) {
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
 
@@ -97,23 +98,22 @@
                     row = table.insertRow();
                 }
 
-                const studentCell = row.insertCell();
-                studentCell.style.border = '1px solid #000';
-                studentCell.style.padding = '8px';
-                studentCell.style.textAlign = 'center';
-                studentCell.innerHTML = student;
+                const cell = row.insertCell();
+                cell.style.border = '1px solid #000';
+                cell.style.padding = '8px';
+                cell.style.textAlign = 'center';
+                cell.innerHTML = `${student} — Seat: ${seat}`;
 
-                const seatCell = row.insertCell();
-                seatCell.style.border = '1px solid #000';
-                seatCell.style.padding = '8px';
-                seatCell.style.textAlign = 'center';
-                seatCell.innerHTML = seat;
-
-                cellIndex = (cellIndex + 2) % 4;
+                cellIndex = (cellIndex + 1) % 4;
             });
 
             resultDiv.appendChild(table);
         }
     </script>
+    <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Developmentm — Oklahoma State University</h4>
+    <div id="footer">
+        <img src="image/OSUblack.svg" width="75px" height="auto">
+    </div>
 </body>
+    
 </html>
