@@ -83,31 +83,26 @@
         }
 
        function displayResults(seatAssignments) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
-
-            const table = document.createElement('table');
-            table.style.width = '100%';
-            table.style.borderCollapse = 'collapse';
-
-            let row;
-            let cellIndex = 0;
-
-            Object.entries(seatAssignments).forEach(([student, seat], index) => {
-                if (cellIndex === 0) {
-                    row = table.insertRow();
-                }
-
-                const cell = row.insertCell();
-                cell.style.padding = '5px';
-                cell.style.textAlign = 'center';
-                cell.innerHTML = `${student}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seat: ${seat}`;
-
-                cellIndex = (cellIndex + 2) % 4;
-            });
-
-            resultDiv.appendChild(table);
-        }
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
+    
+        const table = document.createElement('table');
+    
+        let row;
+        let cellIndex = 0;
+    
+        Object.entries(seatAssignments).forEach(([student, seat], index) => {
+            if (cellIndex === 0) {
+                row = table.insertRow();
+            }
+    
+            const cell = row.insertCell();
+            cell.innerHTML = `${student}&nbsp;&nbsp;&nbsp;Seat: ${seat}`;
+            cellIndex = (cellIndex + 2) % 4;
+        });
+    
+        resultDiv.appendChild(table);
+    }
     </script>
     <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Developmentm — Oklahoma State University</h4>
     <div id="footer">
