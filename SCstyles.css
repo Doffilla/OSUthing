@@ -1,7 +1,7 @@
         html{
             font-size: 1em;
             font-size: 90%;
-            font-family: Trebuchet, sans-serif;
+            font-family: 'Fairweather', sans-serif;
             background-color: grey;
             background: url(image/Dbars.svg) repeat-x, linear-gradient(#CBCBCB, #a8a8a8);
             display: flex;
@@ -61,7 +61,7 @@
         }
         button {
           float: right;
-          font-family: 'Arvo', serif;
+          font-family: 'Fairweather', sans-serif;
           padding: 10px 20px;
           font-size: 100%;
           cursor: pointer;
@@ -138,7 +138,7 @@
         h3 {
             margin: 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Fairweather', sans-serif;
             font-size: 130%;
             text-align: left;
         }
