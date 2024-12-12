@@ -24,11 +24,11 @@
         }
         
         tr:nth-child(odd) td {
-            background-color: #f4f4f4; /* Light gray for odd rows */
+            background-color: #e65300;
         }
         
         tr:nth-child(even) td {
-            background-color: #e0e0e0; /* Slightly darker gray for even rows */
+            background-color: #ff9900;
         }
         body {
             height: 100vh;
