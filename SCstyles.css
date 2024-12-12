@@ -23,7 +23,7 @@
             gap: 10px; /* Space between rows within a column */
             width: 45%; /* Adjust width for the columns */
             border-radius: 10px; /* Round corners */
-            border: 2px solid #ccc; /* Add a border around the columns */
+            border: 0px solid #ccc; /* Add a border around the columns */
             padding: 10px;
             background-color: #f9f9f9; /* Light background color */
         }
