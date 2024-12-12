@@ -61,7 +61,7 @@ html{
         }
         button {
           float: right;
-          font-family: 'Arvo', serif;
+          font-family: 'NeoGram', sans-serif;
           padding: 10px 20px;
           font-size: 100%;
           cursor: pointer;
@@ -124,21 +124,21 @@ html{
         h1 {
             margin: 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Fairweather', sans-serif;
             font-size: 250%;
             text-align: left;
         }
         h2 {
             margin: 15px 0px 15px 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Fairweather', sans-serif;
             font-size: 150%;
             text-align: left;
         }
         h3 {
             margin: 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Fairweather', sans-serif;
             font-size: 130%;
             text-align: left;
         }
