@@ -83,29 +83,25 @@
         }
 
         function displayResults(seatAssignments) {
-           const resultDiv = document.getElementById('result');
-           resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
-    
-           const table = document.createElement('table');
-           let row;
-           let cellIndex = 0;
-    
-        Object.entries(seatAssignments).forEach(([student, seat], index) => {
-            if (cellIndex === 0) {
-                row = table.insertRow();
-            }
-    
-            const cell = row.insertCell();
-            cell.innerHTML = `${student}`;
-            cellIndex = (cellIndex + 1) % 2;
-    
-            const seatCell = row.insertCell();
-            seatCell.innerHTML = `Seat ${seat}`;
-            cellIndex = (cellIndex + 1) % 2;
-        });
-    
-        resultDiv.appendChild(table);
-    }
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
+        
+            const table = document.createElement('table');
+            
+            Object.entries(seatAssignments).forEach(([student, seat]) => {
+                const row = table.insertRow();
+        
+                // Student name cell
+                const nameCell = row.insertCell();
+                nameCell.innerHTML = student;
+                
+                // Seat number cell
+                const seatCell = row.insertCell();
+                seatCell.innerHTML = `Seat ${seat}`;
+            });
+        
+            resultDiv.appendChild(table);
+        }
     </script>
     <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Developmentm — Oklahoma State University</h4>
     <div id="footer">
