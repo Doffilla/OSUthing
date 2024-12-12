@@ -86,21 +86,39 @@
             const resultDiv = document.getElementById('result');
             resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
         
-            const table = document.createElement('table');
+            // Create the container for two columns
+            const container = document.createElement('div');
+            container.classList.add('container-columns');
             
-            Object.entries(seatAssignments).forEach(([student, seat]) => {
-                const row = table.insertRow();
+            // Create two columns
+            const column1 = document.createElement('div');
+            column1.classList.add('column');
+            const column2 = document.createElement('div');
+            column2.classList.add('column');
+            
+            let index = 0;
+            
+            // Split the seat assignments into two columns
+            Object.entries(seatAssignments).forEach(([student, seat], idx) => {
+                const seatPair = document.createElement('div');
+                seatPair.classList.add('seat-pair');
+                seatPair.innerHTML = `<span>${student}</span><span>Seat ${seat}</span>`;
         
-                // Student name cell
-                const nameCell = row.insertCell();
-                nameCell.innerHTML = student;
-                
-                // Seat number cell
-                const seatCell = row.insertCell();
-                seatCell.innerHTML = `Seat ${seat}`;
+                // Alternate adding to column 1 and column 2
+                if (index % 2 === 0) {
+                    column1.appendChild(seatPair);
+                } else {
+                    column2.appendChild(seatPair);
+                }
+        
+                index++;
             });
         
-            resultDiv.appendChild(table);
+            // Append columns to the container
+            container.appendChild(column1);
+            container.appendChild(column2);
+        
+            resultDiv.appendChild(container);
         }
     </script>
     <h4>&copy <script>document.write(new Date().getFullYear())</script>, Office of Educational Developmentm — Oklahoma State University</h4>
