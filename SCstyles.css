@@ -12,44 +12,39 @@
         }
         .container-columns {
             display: flex;
-            gap: 20px; /* 30px gap between the two columns */
+            gap: 20px;
             justify-content: center;
         }
         
-        /* Style the individual columns */
         .column {
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Space between rows within a column */
-            width: 45%; /* Adjust width for the columns */
-            border-radius: 10px; /* Round corners */
-            border: 0px solid #ccc; /* Add a border around the columns */
+            gap: 10px;
+            width: 45%;
+            border-radius: 10px;
+            border: 0px solid #ccc;
             padding: 10px;
-            background-color: #f9f9f9; /* Light background color */
+            background-color: #f2f2f2;
         }
         
-        /* Style each student-seat pair as a row in the column */
         .seat-pair {
             display: flex;
             justify-content: space-between;
             padding: 5px;
-            border-radius: 5px; /* Round corners for each row */
+            /*border-radius: 5px;*/
             font-weight: bold;
         }
         
-        /* Style for odd rows in each column */
         .column .seat-pair:nth-child(odd) {
-            background-color: #e65300; /* Orange for odd rows */
+            background-color: #e65300;
         }
         
-        /* Style for even rows in each column */
         .column .seat-pair:nth-child(even) {
-            background-color: #ff9900; /* Light orange for even rows */
+            background-color: #ff9900;
         }
         
-        /* Style for better readability */
         .seat-pair span {
-            margin-right: 10px; /* Small gap between name and seat */
+            margin-right: 10px;
         }
 
         body {
