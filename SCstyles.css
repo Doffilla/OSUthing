@@ -92,7 +92,7 @@
           font-size: 100%;
           cursor: pointer;
           border: none;
-          background: #e65300;
+          background: black;
           color: white;
           border-radius: 0px;
           position: relative;
@@ -117,7 +117,7 @@
         }
         
         button:hover {
-          background: linear-gradient(90deg, black, #e65300);
+          background: #e65300);
         }
         
         button:hover span {
