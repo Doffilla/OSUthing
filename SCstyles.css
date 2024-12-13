@@ -1,7 +1,7 @@
         html{
             font-size: 1em;
             font-size: 90%;
-            font-family: 'Fairweather', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: grey;
             background: url(images/Dbars.svg) repeat-x, linear-gradient(#CBCBCB, #a8a8a8);
             display: flex;
@@ -136,21 +136,21 @@
         h1 {
             margin: 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 250%;
             text-align: left;
         }
         h2 {
             margin: 15px 0px 15px 0px; 
             padding: 0px;
-            font-family: 'Arvo', serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 150%;
             text-align: left;
         }
         h3 {
             margin: 0px; 
             padding: 0px;
-            font-family: 'Fairweather', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-size: 130%;
             text-align: left;
         }
