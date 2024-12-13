@@ -60,10 +60,13 @@ function displayResults(seatAssignments) {
 
     let index = 0;
 
-    Object.entries(seatAssignments).forEach(([student, seat], idx) => {
+    // Sort the seatAssignments object by student name
+    const sortedEntries = Object.entries(seatAssignments).sort(([studentA], [studentB]) => studentA.localeCompare(studentB));
+
+    sortedEntries.forEach(([student, seat], idx) => {
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = <span>${student}</span><span>${seat}</span>;
+        seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
 
         if (index % 2 === 0) {
             column1.appendChild(seatPair);
