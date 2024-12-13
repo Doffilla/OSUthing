@@ -116,11 +116,11 @@
         }
         
         button:hover span {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
         
         button:hover::after {
-            height: 4px;
+            height: 6px;
         }
         .result {
             margin-top: 20px;
