@@ -4,24 +4,17 @@ function assignSeats() {
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
 
+    reservedSeatsInput.forEach(entry => {
+        const [name, seat] = entry.split(':').map(item => item.trim());
+        reservedSeats[name] = parseInt(seat);
+    });
+
     const availableSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !Object.values(reservedSeats).includes(seat));
     const unassignedStudents = studentNames.filter(name => !reservedSeats[name]);
 
     if (unassignedStudents.length > availableSeats.length) {
         alert('Not enough seats for all students.');
-        return; 
-    }
-
-    for (let entry of reservedSeatsInput) {
-        const [name, seat] = entry.split(':').map(item => item.trim());
-        const seatNumber = parseInt(seat);
-
-        if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(Seat number ${seatNumber} for ${name} is invalid. Please provide a valid seat between 1 and the toatal number of seats.);
-            return; 
-        }
-
-        reservedSeats[name] = seatNumber;
+        return;
     }
 
     const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length);
@@ -67,12 +60,10 @@ function displayResults(seatAssignments) {
 
     let index = 0;
 
-    const sortedEntries = Object.entries(seatAssignments).sort(([studentA], [studentB]) => studentA.localeCompare(studentB));
-
-    sortedEntries.forEach(([student, seat], idx) => {
+    Object.entries(seatAssignments).forEach(([student, seat], idx) => {
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = <span>${student}</span><span>${seat}</span>;
+        seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
 
         if (index % 2 === 0) {
             column1.appendChild(seatPair);
@@ -95,7 +86,7 @@ function printResults() {
 
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
     printWindow.document.write('<style>');
-    printWindow.document.write(
+    printWindow.document.write(`
         body {
             font-family: 'Fairweather', sans-serif;
         }
@@ -129,7 +120,7 @@ function printResults() {
         .seat-pair span {
             margin-right: 10px;
         }
-    );
+    `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML);
