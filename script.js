@@ -4,10 +4,15 @@ function assignSeats() {
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
 
-    reservedSeatsInput.forEach(entry => {
+    for (const entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim());
-        reservedSeats[name] = parseInt(seat);
-    });
+        const seatNumber = parseInt(seat);
+        if (isNaN(seatNumber) || seatNumber < 1 || seatNumber > totalSeats) {
+            alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
+            return;
+        }
+        reservedSeats[name] = seatNumber;
+    }
 
     const availableSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !Object.values(reservedSeats).includes(seat));
     const unassignedStudents = studentNames.filter(name => !reservedSeats[name]);
