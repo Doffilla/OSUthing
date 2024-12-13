@@ -51,4 +51,80 @@ function displayResults(seatAssignments) {
     resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
 
     const container = document.createElement('div');
-    container.classList.add('container-co
+    container.classList.add('container-columns');
+
+    const column1 = document.createElement('div');
+    column1.classList.add('column');
+    const column2 = document.createElement('div');
+    column2.classList.add('column');
+
+    let index = 0;
+
+    Object.entries(seatAssignments).forEach(([student, seat], idx) => {
+        const seatPair = document.createElement('div');
+        seatPair.classList.add('seat-pair');
+        seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
+
+        if (index % 2 === 0) {
+            column1.appendChild(seatPair);
+        } else {
+            column2.appendChild(seatPair);
+        }
+
+        index++;
+    });
+
+    container.appendChild(column1);
+    container.appendChild(column2);
+
+    resultDiv.appendChild(container);
+}
+
+function printResults() {
+    const resultDiv = document.getElementById('result');
+    const printWindow = window.open('', '', 'height=600,width=800');
+
+    printWindow.document.write('<html><head><title>Seat Assignments</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write(`
+        body {
+            font-family: 'Fairweather', sans-serif;
+        }
+        .container-columns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 45%;
+            border-radius: 10px;
+            border: 0px solid #ccc;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+        .seat-pair {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            font-weight: bold;
+        }
+        .column .seat-pair:nth-child(odd) {
+            background-color: #e65300;
+        }
+        .column .seat-pair:nth-child(even) {
+            background-color: #ff9900;
+        }
+        .seat-pair span {
+            margin-right: 10px;
+        }
+    `);
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(resultDiv.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
