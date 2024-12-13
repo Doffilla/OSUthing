@@ -58,20 +58,21 @@ function displayResults(seatAssignments) {
     const column2 = document.createElement('div');
     column2.classList.add('column');
 
-    let index = 0;
+    const sortedAssignments = Object.entries(seatAssignments).sort(([aName], [bName]) => aName.localeCompare(bName));
 
-    Object.entries(seatAssignments).forEach(([student, seat], idx) => {
+    const numColumns = 2;
+    const columnHeights = Math.ceil(sortedAssignments.length / numColumns);
+
+    sortedAssignments.forEach(([student, seat], index) => {
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
         seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
 
-        if (index % 2 === 0) {
+        if (index < columnHeights) {
             column1.appendChild(seatPair);
         } else {
             column2.appendChild(seatPair);
         }
-
-        index++;
     });
 
     container.appendChild(column1);
@@ -79,6 +80,7 @@ function displayResults(seatAssignments) {
 
     resultDiv.appendChild(container);
 }
+
 
 function printResults() {
     const resultDiv = document.getElementById('result');
