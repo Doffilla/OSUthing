@@ -7,21 +7,18 @@ function assignSeats() {
     const availableSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !Object.values(reservedSeats).includes(seat));
     const unassignedStudents = studentNames.filter(name => !reservedSeats[name]);
 
-    // First check if there are enough seats for all students
     if (unassignedStudents.length > availableSeats.length) {
         alert('Not enough seats for all students.');
-        return; // Return immediately if not enough seats
+        return; 
     }
 
-    // Check for invalid reserved seats only after confirming seat availability
     for (let entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim());
         const seatNumber = parseInt(seat);
 
-        // If seat is out of range, alert and return
         if (seatNumber < 1 || seatNumber > totalSeats) {
             alert(`Seat number ${seatNumber} for ${name} is invalid. Please provide a valid seat between 1 and ${totalSeats}.`);
-            return; // Return immediately if the seat number is invalid
+            return; 
         }
 
         reservedSeats[name] = seatNumber;
@@ -70,7 +67,6 @@ function displayResults(seatAssignments) {
 
     let index = 0;
 
-    // Sort the seatAssignments object by student name
     const sortedEntries = Object.entries(seatAssignments).sort(([studentA], [studentB]) => studentA.localeCompare(studentB));
 
     sortedEntries.forEach(([student, seat], idx) => {
