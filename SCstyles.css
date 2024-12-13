@@ -92,12 +92,12 @@
           font-size: 100%;
           cursor: pointer;
           border: none;
-          background: #333333;
+          background: #e65300;
           color: white;
           border-radius: 0px;
           position: relative;
           overflow: hidden;
-          transition: background-color 0.3s ease;
+          transition: background-color 0.5s ease;
         }
         
         button span {
@@ -105,7 +105,7 @@
         }
         
         button:hover {
-          background: #e65300;
+          background: #333333;
         }
 
         .result {
