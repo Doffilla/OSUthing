@@ -17,7 +17,7 @@ function assignSeats() {
         const seatNumber = parseInt(seat);
 
         if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(`Seat number ${seatNumber} for ${name} is invalid. Please provide a valid seat between 1 and ${totalSeats}.`);
+            alert(`Seat number ${seatNumber} for ${name} is invalid. Please provide a valid seat between 1 and the toatal number of seats.`);
             return; 
         }
 
