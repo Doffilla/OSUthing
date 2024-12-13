@@ -60,7 +60,9 @@ function displayResults(seatAssignments) {
 
     let index = 0;
 
-    Object.entries(seatAssignments).forEach(([student, seat], idx) => {
+    const sortedSeatAssignments = Object.entries(seatAssignments).sort(([a], [b]) => a.localeCompare(b));
+
+    sortedSeatAssignments.forEach(([student, seat], idx) => {
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
         seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
