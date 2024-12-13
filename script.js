@@ -94,43 +94,7 @@ function printResults() {
     const printWindow = window.open('', '', 'height=600,width=800');
 
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
-    printWindow.document.write('<style>');
-    printWindow.document.write(`
-        body {
-            font-family: 'Fairweather', sans-serif;
-        }
-        .container-columns {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        .column {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 45%;
-            border-radius: 10px;
-            border: 0px solid #ccc;
-            padding: 10px;
-            background-color: #f2f2f2;
-        }
-        .seat-pair {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            font-weight: bold;
-        }
-        .column .seat-pair:nth-child(odd) {
-            background-color: #e65300;
-        }
-        .column .seat-pair:nth-child(even) {
-            background-color: #ff9900;
-        }
-        .seat-pair span {
-            margin-right: 10px;
-        }
-    `);
-    printWindow.document.write('</style>');
+    printWindow.document.write('<link rel="stylesheet" type="text/css" href="path_to_your_stylesheet.css">'); // Link to your external CSS file
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML);
     printWindow.document.write('</body></html>');
