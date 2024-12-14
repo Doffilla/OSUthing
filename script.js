@@ -151,19 +151,19 @@ function printResults() {
             justify-content: space-between;
             padding: 5px;
             font-weight: bold;
-            color: black; /* Default font color for all scenarios */
+            color: black;
         }
         
         .column .seat-pair:nth-child(odd) {
-            background-color: #e65300; /* Solid orange */
+            background-color: #e65300;
             -webkit-print-color-adjust: exact;
-            color: black; /* Font color black for color printing */
+            print-color-adjust: exact;
         }
         
         .column .seat-pair:nth-child(even) {
-            background-color: #ff9900; /* Lighter orange */
+            background-color: #ff9900;
             -webkit-print-color-adjust: exact;
-            color: black; /* Font color black for color printing */
+            print-color-adjust: exact;
         }
         
         .seat-pair span {
@@ -171,21 +171,22 @@ function printResults() {
         }
         
         @media print {
+           
             body {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-                filter: grayscale(100%); /* Grayscale printing fallback */
             }
         
             .column .seat-pair:nth-child(odd) {
-                background-color: #e65300; /* Solid orange for grayscale */
+                background-color: #e65300;
+                color: white;
             }
         
             .column .seat-pair:nth-child(even) {
-                background-color: #ff9900; /* Lighter orange for grayscale */
+                background-color: #ff9900;
+                color: black;
             }
         }
-
     `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
