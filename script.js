@@ -141,24 +141,42 @@ function printResults() {
             border-radius: 10px;
             border: 0px solid #ccc;
             padding: 10px;
-            box-shadow: inset 0 0 0 1px #ccc; /* Ensure the column is visible */
+            background-color: #f2f2f2;
         }
         .seat-pair {
             display: flex;
             justify-content: space-between;
             padding: 5px;
             font-weight: bold;
-            border: 1px solid #ccc; /* Visible separator for rows */
-            box-shadow: inset 0 0 0 1px transparent; /* Default transparent background */
         }
         .column .seat-pair:nth-child(odd) {
-            box-shadow: inset 0 0 0 1px #e65300; /* Red-orange for odd rows */
+            background-color: #e65300; /* Solid orange for print */
+            -webkit-print-color-adjust: exact; /* Ensures background color is printed */
+            color: #fff; /* Adjust text color for contrast */
         }
         .column .seat-pair:nth-child(even) {
-            box-shadow: inset 0 0 0 1px #ff9900; /* Lighter orange for even rows */
+            background-color: #ff9900; /* Lighter orange for print */
+            -webkit-print-color-adjust: exact;
+            color: #000;
         }
         .seat-pair span {
             margin-right: 10px;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact; /* Ensures print colors match screen colors */
+            }
+            .column {
+                background-color: #f2f2f2; /* Light background for print */
+            }
+            .column .seat-pair:nth-child(odd) {
+                background-color: #e65300; /* Consistent print colors */
+            }
+            .column .seat-pair:nth-child(even) {
+                background-color: #ff9900;
+            }
         }
     `);
     printWindow.document.write('</style>');
