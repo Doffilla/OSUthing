@@ -1,11 +1,12 @@
 function assignSeats() {
-
+    // Parse student names and ensure uniqueness
     const studentNames = [...new Set(
         document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name)
     )];
 
     const totalSeats = parseInt(document.getElementById('totalSeats').value);
 
+    // Parse reserved seats, allowing duplicate names
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
     const reservedNames = [];
@@ -22,12 +23,13 @@ function assignSeats() {
             alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
             return;
         }
-
+        // Add duplicates of the same name as separate entries
         const uniqueName = name + (reservedNames.filter(n => n.startsWith(name)).length + 1);
         reservedSeats[uniqueName] = seatNumber;
         reservedNames.push(name);
     }
 
+    // Filter out students who are already in the reserved list
     const reservedNameSet = new Set(reservedNames);
     const unassignedStudents = studentNames.filter(name => !reservedNameSet.has(name));
 
@@ -38,7 +40,8 @@ function assignSeats() {
         return;
     }
 
-    const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length);
+    // Distribute available seats evenly, avoiding neighbors of reserved seats
+    const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length, Object.values(reservedSeats));
     shuffleArray(evenlyDistributedSeats);
 
     const seatAssignments = { ...reservedSeats };
@@ -59,11 +62,24 @@ function shuffleArray(array) {
     }
 }
 
-function distributeSeatsEvenly(seats, count) {
-    const step = Math.floor(seats.length / count);
+function distributeSeatsEvenly(seats, count, reservedSeats) {
+    // Identify seats directly next to reserved seats
+    const avoidanceSeats = new Set();
+    reservedSeats.forEach(seat => {
+        if (seat > 1) avoidanceSeats.add(seat - 1);
+        if (seat < seats.length) avoidanceSeats.add(seat + 1);
+    });
+
+    // Prioritize seats that are NOT neighboring reserved seats
+    const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
+    const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
+
+    // Evenly distribute, using prioritized seats first
+    const step = Math.floor(prioritizedSeats.length / count) || 1;
     const distributedSeats = [];
     for (let i = 0; i < count; i++) {
-        distributedSeats.push(seats[i * step]);
+        const seat = prioritizedSeats[i * step] || fallbackSeats[i % fallbackSeats.length];
+        distributedSeats.push(seat);
     }
     return distributedSeats;
 }
@@ -85,7 +101,7 @@ function displayResults(seatAssignments, reservedNames) {
     const sortedSeatAssignments = Object.entries(seatAssignments).sort(([a], [b]) => a.localeCompare(b));
 
     sortedSeatAssignments.forEach(([student, seat], idx) => {
-
+        // Remove the appended identifier for display purposes
         const displayName = reservedNames.includes(student.replace(/\d+$/, '')) ? student.replace(/\d+$/, '') : student;
 
         const seatPair = document.createElement('div');
