@@ -8,7 +8,7 @@ function assignSeats() {
         const [name, seat] = entry.split(':').map(item => item.trim());
         const seatNumber = parseInt(seat);
         if (isNaN(seatNumber)) {
-            alert(`"${name}"'s name is in the reserved seat list but no seat was specified`);
+            alert(`${name}'s name is in the reserved seat list but no seat was specified`);
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
