@@ -128,11 +128,13 @@ function printResults() {
         body {
             font-family: 'Fairweather', sans-serif;
         }
+        
         .container-columns {
             display: flex;
             gap: 20px;
             justify-content: center;
         }
+        
         .column {
             display: flex;
             flex-direction: column;
@@ -143,41 +145,47 @@ function printResults() {
             padding: 10px;
             background-color: #f2f2f2;
         }
+        
         .seat-pair {
             display: flex;
             justify-content: space-between;
             padding: 5px;
             font-weight: bold;
+            color: black; /* Default font color for all scenarios */
         }
+        
         .column .seat-pair:nth-child(odd) {
-            background-color: #e65300; /* Solid orange for print */
-            -webkit-print-color-adjust: exact; /* Ensures background color is printed */
-            color: #fff; /* Adjust text color for contrast */
-        }
-        .column .seat-pair:nth-child(even) {
-            background-color: #ff9900; /* Lighter orange for print */
+            background-color: #e65300; /* Solid orange */
             -webkit-print-color-adjust: exact;
-            color: #000;
+            color: black; /* Font color black for color printing */
         }
+        
+        .column .seat-pair:nth-child(even) {
+            background-color: #ff9900; /* Lighter orange */
+            -webkit-print-color-adjust: exact;
+            color: black; /* Font color black for color printing */
+        }
+        
         .seat-pair span {
             margin-right: 10px;
         }
-
+        
         @media print {
             body {
                 -webkit-print-color-adjust: exact;
-                print-color-adjust: exact; /* Ensures print colors match screen colors */
+                print-color-adjust: exact;
+                filter: grayscale(100%); /* Grayscale printing fallback */
             }
-            .column {
-                background-color: #f2f2f2; /* Light background for print */
-            }
+        
             .column .seat-pair:nth-child(odd) {
-                background-color: #e65300; /* Consistent print colors */
+                background-color: #e65300; /* Solid orange for grayscale */
             }
+        
             .column .seat-pair:nth-child(even) {
-                background-color: #ff9900;
+                background-color: #ff9900; /* Lighter orange for grayscale */
             }
         }
+
     `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
