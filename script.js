@@ -141,19 +141,21 @@ function printResults() {
             border-radius: 10px;
             border: 0px solid #ccc;
             padding: 10px;
-            background-color: #f2f2f2;
+            box-shadow: inset 0 0 0 1px #ccc; /* Ensure the column is visible */
         }
         .seat-pair {
             display: flex;
             justify-content: space-between;
             padding: 5px;
             font-weight: bold;
+            border: 1px solid #ccc; /* Visible separator for rows */
+            box-shadow: inset 0 0 0 1px transparent; /* Default transparent background */
         }
         .column .seat-pair:nth-child(odd) {
-            background-color: #e65300;
+            box-shadow: inset 0 0 0 1px #e65300; /* Red-orange for odd rows */
         }
         .column .seat-pair:nth-child(even) {
-            background-color: #ff9900;
+            box-shadow: inset 0 0 0 1px #ff9900; /* Lighter orange for even rows */
         }
         .seat-pair span {
             margin-right: 10px;
@@ -166,3 +168,4 @@ function printResults() {
     printWindow.document.close();
     printWindow.print();
 }
+
