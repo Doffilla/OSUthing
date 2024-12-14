@@ -15,11 +15,11 @@ function assignSeats() {
         const seatNumber = parseInt(seat);
 
         if (isNaN(seatNumber)) {
-            alert(`${name}'s name is in the reserved seat list but no seat was specified.`);
+            alert(${name}'s name is in the reserved seat list but no seat was specified.);
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
+            alert(Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.);
             return;
         }
         
@@ -101,7 +101,7 @@ function displayResults(seatAssignments, reservedNames) {
 
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`;
+        seatPair.innerHTML = <span>${displayName}</span><span>${seat}</span>;
 
         if (index % 2 === 0) {
             column1.appendChild(seatPair);
@@ -124,17 +124,15 @@ function printResults() {
 
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
     printWindow.document.write('<style>');
-    printWindow.document.write(`
+    printWindow.document.write(
         body {
             font-family: 'Fairweather', sans-serif;
         }
-        
         .container-columns {
             display: flex;
             gap: 20px;
             justify-content: center;
         }
-        
         .column {
             display: flex;
             flex-direction: column;
@@ -145,49 +143,42 @@ function printResults() {
             padding: 10px;
             background-color: #f2f2f2;
         }
-        
         .seat-pair {
             display: flex;
             justify-content: space-between;
             padding: 5px;
             font-weight: bold;
-            color: black;
         }
-        
         .column .seat-pair:nth-child(odd) {
             background-color: #e65300;
             -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            color: #fff; 
         }
-        
         .column .seat-pair:nth-child(even) {
             background-color: #ff9900;
             -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            color: #000;
         }
-        
         .seat-pair span {
             margin-right: 10px;
         }
-        
+
         @media print {
-           
             body {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-        
+            .column {
+                background-color: #f2f2f2;
+            }
             .column .seat-pair:nth-child(odd) {
                 background-color: #e65300;
-                color: white;
             }
-        
             .column .seat-pair:nth-child(even) {
                 background-color: #ff9900;
-                color: black;
             }
         }
-    `);
+    );
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML);
@@ -195,4 +186,3 @@ function printResults() {
     printWindow.document.close();
     printWindow.print();
 }
-
