@@ -1,33 +1,49 @@
 function assignSeats() {
-    const studentNames = document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name);
+    // Parse student names and ensure uniqueness
+    const studentNames = [...new Set(
+        document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name)
+    )];
+
     const totalSeats = parseInt(document.getElementById('totalSeats').value);
+
+    // Parse reserved seats, allowing duplicate names
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
+    const reservedNames = [];
 
     for (const entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim());
         const seatNumber = parseInt(seat);
+
         if (isNaN(seatNumber)) {
-            alert(`${name}'s name is in the reserved seat list but no seat was specified`);
+            alert(`${name}'s name is in the reserved seat list but no seat was specified.`);
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
             alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
             return;
         }
-        reservedSeats[name] = seatNumber;
+        // Add duplicates of the same name as separate entries
+        const uniqueName = name + (reservedNames.filter(n => n.startsWith(name)).length + 1);
+        reservedSeats[uniqueName] = seatNumber;
+        reservedNames.push(name);
     }
 
+    // Filter out students who are already in the reserved list
+    const reservedNameSet = new Set(reservedNames);
+    const unassignedStudents = studentNames.filter(name => !reservedNameSet.has(name));
+
     const availableSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !Object.values(reservedSeats).includes(seat));
-    const unassignedStudents = studentNames.filter(name => !reservedSeats[name]);
 
     if (unassignedStudents.length > availableSeats.length) {
         alert('Not enough seats for all students.');
         return;
     }
 
+    // Distribute available seats evenly
     const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length);
     shuffleArray(evenlyDistributedSeats);
+
     const seatAssignments = { ...reservedSeats };
 
     unassignedStudents.forEach((student, index) => {
