@@ -1,12 +1,11 @@
 function assignSeats() {
-    // Parse student names and ensure uniqueness
+
     const studentNames = [...new Set(
         document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name)
     )];
 
     const totalSeats = parseInt(document.getElementById('totalSeats').value);
 
-    // Parse reserved seats, allowing duplicate names
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
     const reservedNames = [];
@@ -23,13 +22,12 @@ function assignSeats() {
             alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
             return;
         }
-        // Add duplicates of the same name as separate entries
+
         const uniqueName = name + (reservedNames.filter(n => n.startsWith(name)).length + 1);
         reservedSeats[uniqueName] = seatNumber;
         reservedNames.push(name);
     }
 
-    // Filter out students who are already in the reserved list
     const reservedNameSet = new Set(reservedNames);
     const unassignedStudents = studentNames.filter(name => !reservedNameSet.has(name));
 
@@ -40,7 +38,6 @@ function assignSeats() {
         return;
     }
 
-    // Distribute available seats evenly
     const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length);
     shuffleArray(evenlyDistributedSeats);
 
@@ -50,7 +47,7 @@ function assignSeats() {
         seatAssignments[student] = evenlyDistributedSeats[index];
     });
 
-    displayResults(seatAssignments);
+    displayResults(seatAssignments, reservedNames);
 
     document.getElementById('printButton').style.display = 'block';
 }
@@ -71,7 +68,7 @@ function distributeSeatsEvenly(seats, count) {
     return distributedSeats;
 }
 
-function displayResults(seatAssignments) {
+function displayResults(seatAssignments, reservedNames) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
 
@@ -88,9 +85,12 @@ function displayResults(seatAssignments) {
     const sortedSeatAssignments = Object.entries(seatAssignments).sort(([a], [b]) => a.localeCompare(b));
 
     sortedSeatAssignments.forEach(([student, seat], idx) => {
+
+        const displayName = reservedNames.includes(student.replace(/\d+$/, '')) ? student.replace(/\d+$/, '') : student;
+
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = `<span>${student}</span><span>${seat}</span>`;
+        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`;
 
         if (index % 2 === 0) {
             column1.appendChild(seatPair);
