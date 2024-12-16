@@ -124,7 +124,7 @@ function printResults() {
 
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
     printWindow.document.write('<style>');
-    printWindow.document.write(
+    printWindow.document.write(`
         body {
             font-family: 'Fairweather', sans-serif;
         }
@@ -178,7 +178,7 @@ function printResults() {
                 background-color: #ff9900;
             }
         }
-    );
+    `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML);
