@@ -101,7 +101,8 @@ function displayResults(seatAssignments, reservedNames) {
 
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = <span>${displayName}</span><span>${seat}</span>;
+        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`;
+
 
         if (index % 2 === 0) {
             column1.appendChild(seatPair);
