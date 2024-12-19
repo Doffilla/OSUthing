@@ -63,6 +63,11 @@ function assignSeats() {
         seatAssignments[student] = evenlyDistributedSeats[index];
     });
 
+    // Validate seat assignments
+    if (!validateSeatAssignments(seatAssignments)) {
+        return; // Stop execution if there are duplicate seat assignments
+    }
+
     // Display the final seat assignments in the result section
     displayResults(seatAssignments, reservedNames);
 
@@ -104,10 +109,30 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
     return distributedSeats;
 }
 
+// Function to validate that no seat is assigned to more than one person
+function validateSeatAssignments(seatAssignments) {
+    const assignedSeats = Object.values(seatAssignments); // Extract all assigned seat numbers
+    const seatCounts = assignedSeats.reduce((counts, seat) => {
+        counts[seat] = (counts[seat] || 0) + 1; // Count occurrences of each seat
+        return counts;
+    }, {});
+
+    const duplicateSeats = Object.entries(seatCounts).filter(([seat, count]) => count > 1); // Find duplicates
+
+    if (duplicateSeats.length > 0) {
+        const duplicateMessage = duplicateSeats
+            .map(([seat, count]) => `Seat ${seat} is assigned to ${count} people.`)
+            .join('\n');
+        alert(`Error: Duplicate seat assignments detected.\n\n${duplicateMessage}`);
+        return false;
+    }
+    return true;
+}
+
 // Function to display the seat assignments in the result section of the page
 function displayResults(seatAssignments, reservedNames) {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<hr /> <h2>Seat Assignments</h2>';
+    resultDiv.innerHTML = '<hr /><br><h2>Seat Assignments</h2>';
 
     const container = document.createElement('div');
     container.classList.add('container-columns');
@@ -159,7 +184,24 @@ function printResults() {
          /*CSS styling for the printed version of the seat assignments table*/
          
         body {
-            font-family: 'Fairweather', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0.25px;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #FF7300;
+            margin: 0px;
+        }
+        h2 {
+            margin: 15px 0px 15px 0px; 
+            padding: 0px;
+            letter-spacing: 0.25px;
+            font-size: 250%;
+            letter-spacing: 0.25px;
+            text-align: left;
         }
         .container-columns {
             display: flex;
@@ -169,31 +211,26 @@ function printResults() {
         .column {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            width: 45%;
-            border-radius: 10px;
-            border: 0px solid #ccc;
-            padding: 10px;
-            background-color: #f2f2f2;
+            gap: 1px;
+            width: 55%;
+            
         }
         .seat-pair {
             display: flex;
             justify-content: space-between;
-            padding: 5px;
-            font-weight: bold;
+            padding: 10px;
         }
         .column .seat-pair:nth-child(odd) {
-            background-color: #e65300;
+            background-color: #ffdab4;
             -webkit-print-color-adjust: exact;
-            color: #fff; 
         }
         .column .seat-pair:nth-child(even) {
-            background-color: #ff9900;
+            background-color: #fff3e6;
             -webkit-print-color-adjust: exact;
-            color: #000;
         }
         .seat-pair span {
-            margin-right: 10px;
+            margin-right: 25px;
+            margin-left: 20px;
         }
 
         @media print {
@@ -202,13 +239,13 @@ function printResults() {
                 print-color-adjust: exact;
             }
             .column {
-                background-color: #f2f2f2;
+                background-color: #fff;
             }
             .column .seat-pair:nth-child(odd) {
-                background-color: #e65300;
+                background-color: #ffdab4;
             }
             .column .seat-pair:nth-child(even) {
-                background-color: #ff9900;
+                background-color: #fff3e6;
             }
         }
     `);
