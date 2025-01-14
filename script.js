@@ -130,9 +130,20 @@ function validateSeatAssignments(seatAssignments) {
 }
 
 // Function to display the seat assignments in the result section of the page
-function displayResults(seatAssignments, reservedNames) {
+function displayResults(seatAssignments, reservedNames, totalSeats) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '<hr /><br><h2>Seat Assignments</h2>';
+
+    // Calculate unoccupied seats
+    const allSeats = Array.from({ length: totalSeats }, (_, i) => i + 1);
+    const occupiedSeats = new Set(Object.values(seatAssignments));
+    const unoccupiedSeats = allSeats.filter(seat => !occupiedSeats.has(seat));
+
+    // Display unoccupied seats at the top
+    const unoccupiedDiv = document.createElement('div');
+    unoccupiedDiv.classList.add('unoccupied');
+    unoccupiedDiv.innerHTML = `<strong>Unoccupied:</strong> ${unoccupiedSeats.join(', ')}`;
+    resultDiv.appendChild(unoccupiedDiv);
 
     const container = document.createElement('div');
     container.classList.add('container-columns');
