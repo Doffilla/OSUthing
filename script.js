@@ -1,15 +1,18 @@
-// Main function to assign seats to students
 function assignSeats() {
+    // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
         document.getElementById('studentNames').value.trim().split('\n').map(name => name.trim()).filter(name => name)
     )];
-    
+
+    // Get the total number of seats available
     const totalSeats = parseInt(document.getElementById('totalSeats').value);
-    
+
+    // Get and clean up the reserved seats input
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {};
     const reservedNames = [];
 
+    // Process each reserved seat entry (name: seat)
     for (const entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim());
         const seatNumber = parseInt(seat);
@@ -28,31 +31,48 @@ function assignSeats() {
         reservedNames.push(name);
     }
 
+    // Create a set of reserved names for quick lookup
     const reservedNameSet = new Set(reservedNames);
+
+    // Filter out students who are already assigned reserved seats
     const unassignedStudents = studentNames.filter(name => !reservedNameSet.has(name));
+
+    // Determine available seats (those not in reservedSeats)
     const availableSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !Object.values(reservedSeats).includes(seat));
 
+    // If there aren't enough available seats for unassigned students, show an error
     if (unassignedStudents.length > availableSeats.length) {
         alert('Not enough seats for all students.');
         return;
     }
 
+    // Distribute seats evenly for unassigned students, avoiding reserved seats
     const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length, Object.values(reservedSeats));
+
+    // Randomize seat assignments for unassigned students
     shuffleArray(evenlyDistributedSeats);
 
+    // Combine reserved seat assignments with new ones
     const seatAssignments = { ...reservedSeats };
+
+    // Assign seats to unassigned students
     unassignedStudents.forEach((student, index) => {
         seatAssignments[student] = evenlyDistributedSeats[index];
     });
 
+    // Validate seat assignments
     if (!validateSeatAssignments(seatAssignments)) {
         return;
     }
 
-    displayResults(seatAssignments, reservedNames, totalSeats);
+    // Display the final seat assignments in the result section
+    displayResults(seatAssignments, reservedNames, availableSeats);
+
+    // Show the "Print" button once seat assignments are done
     document.getElementById('printButton').style.display = 'block';
 }
 
+// Function to shuffle an array in random order
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -60,19 +80,24 @@ function shuffleArray(array) {
     }
 }
 
+// Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
     const avoidanceSeats = new Set();
 
+    // For each reserved seat, avoid adjacent seats
     reservedSeats.forEach(seat => {
         if (seat > 1) avoidanceSeats.add(seat - 1);
         if (seat < seats.length) avoidanceSeats.add(seat + 1);
     });
 
+    // Prioritize seats that are not adjacent to reserved ones
     const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
     const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
+
     const step = Math.floor(prioritizedSeats.length / count) || 1;
     const distributedSeats = [];
 
+    // Distribute seats across students
     for (let i = 0; i < count; i++) {
         const seat = prioritizedSeats[i * step] || fallbackSeats[i % fallbackSeats.length];
         distributedSeats.push(seat);
@@ -80,6 +105,7 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
     return distributedSeats;
 }
 
+// Function to validate that no seat is assigned to more than one person
 function validateSeatAssignments(seatAssignments) {
     const assignedSeats = Object.values(seatAssignments);
     const seatCounts = assignedSeats.reduce((counts, seat) => {
@@ -99,18 +125,10 @@ function validateSeatAssignments(seatAssignments) {
     return true;
 }
 
-function displayResults(seatAssignments, reservedNames, totalSeats) {
+// Function to display the seat assignments in the result section of the page
+function displayResults(seatAssignments, reservedNames, availableSeats) {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = '<hr /><br><h2>Seat Assignments</h2>';
-
-    const allSeats = Array.from({ length: totalSeats }, (_, i) => i + 1);
-    const occupiedSeats = new Set(Object.values(seatAssignments));
-    const unoccupiedSeats = allSeats.filter(seat => !occupiedSeats.has(seat));
-
-    const unoccupiedDiv = document.createElement('div');
-    unoccupiedDiv.classList.add('unoccupied');
-    unoccupiedDiv.innerHTML = `<strong>Unoccupied:</strong> ${unoccupiedSeats.join(', ') || 'None'}`;
-    resultDiv.appendChild(unoccupiedDiv);
+    resultDiv.innerHTML = `<hr /><br><h2>Seat Assignments</h2><p class="unoccupied">Unoccupied: ${availableSeats.join(', ')}</p>`;
 
     const container = document.createElement('div');
     container.classList.add('container-columns');
@@ -121,6 +139,8 @@ function displayResults(seatAssignments, reservedNames, totalSeats) {
     column2.classList.add('column');
 
     let index = 0;
+
+    // Sort seat assignments alphabetically by student name
     const sortedSeatAssignments = Object.entries(seatAssignments).sort(([a], [b]) => a.localeCompare(b));
 
     sortedSeatAssignments.forEach(([student, seat]) => {
@@ -141,15 +161,86 @@ function displayResults(seatAssignments, reservedNames, totalSeats) {
 
     container.appendChild(column1);
     container.appendChild(column2);
+
     resultDiv.appendChild(container);
 }
 
+// Function to handle printing of the results in a styled format
 function printResults() {
     const resultDiv = document.getElementById('result');
     const printWindow = window.open('', '', 'height=600,width=800');
 
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
-    printWindow.document.write('<style>/* CSS styling for print */</style>');
+    printWindow.document.write('<style>');
+    printWindow.document.write(`
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            letter-spacing: 0.25px;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background-color: #FF7300;
+            margin: 0px;
+        }
+        h2 {
+            margin: 15px 0px 15px 0px; 
+            padding: 0px;
+            letter-spacing: 0.25px;
+            font-size: 250%;
+            text-align: left;
+        }
+        .container-columns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            width: 55%;
+        }
+        .seat-pair {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .column .seat-pair:nth-child(odd) {
+            background-color: #ffdab4;
+            -webkit-print-color-adjust: exact;
+        }
+        .column .seat-pair:nth-child(even) {
+            background-color: #fff3e6;
+            -webkit-print-color-adjust: exact;
+        }
+        .seat-pair span {
+            margin-right: 25px;
+            margin-left: 20px;
+        }
+        .unoccupied {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .column {
+                background-color: #fff;
+            }
+            .column .seat-pair:nth-child(odd) {
+                background-color: #ffdab4;
+            }
+            .column .seat-pair:nth-child(even) {
+                background-color: #fff3e6;
+            }
+        }
+    `);
+    printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML);
     printWindow.document.write('</body></html>');
