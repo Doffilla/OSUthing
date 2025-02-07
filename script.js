@@ -1,4 +1,4 @@
-// Main function to assign seats to students
+// Main function to assign seats to students JOOJ
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
@@ -86,7 +86,10 @@ function shuffleArray(array) {
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
     const distributedSeats = [];
-    const seatSpacing = Math.floor(seats.length / count); // Calculate approximate spacing between assigned seats
+    
+    // Ensure we don't exceed the number of available seats
+    let step = Math.floor(seats.length / count);
+    if (step < 1) step = 1;  // Prevent infinite loop if more students than seats
 
     let index = 0;
     for (let i = 0; i < count; i++) {
@@ -95,7 +98,9 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
         }
         if (index < seats.length) {
             distributedSeats.push(seats[index]); // Assign the seat
-            index += seatSpacing; // Move to the next approximate seat position
+            index += step; // Move to the next seat position
+        } else {
+            break; // Stop if we run out of seats
         }
     }
 
