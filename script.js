@@ -20,11 +20,11 @@ function assignSeats() {
 
         // Validate seat assignment
         if (isNaN(seatNumber)) {
-            alert(${name}'s name is in the reserved seat list but no seat was specified.); // Alert if seat number is missing
+            alert(`${name}'s name is in the reserved seat list but no seat was specified.`); // Alert if seat number is missing
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.);
+            alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
             return; // Alert if the seat number is out of range
         }
 
@@ -70,9 +70,6 @@ function assignSeats() {
 
     // Display the final seat assignments in the result section
     displayResults(seatAssignments, reservedNames);
-
-    // Display the unused seats
-    displayUnusedSeats(totalSeats, seatAssignments);
 
     // Show the "Print" button once seat assignments are done
     document.getElementById('printButton').style.display = 'block';
@@ -128,9 +125,9 @@ function validateSeatAssignments(seatAssignments) {
 
     if (duplicateSeats.length > 0) {
         const duplicateMessage = duplicateSeats
-            .map(([seat, count]) => Seat ${seat} is assigned to ${count} people.)
+            .map(([seat, count]) => `Seat ${seat} is assigned to ${count} people.`)
             .join('\n');
-        alert(Error: Duplicate seat assignments detected.\n\n${duplicateMessage});
+        alert(`Error: Duplicate seat assignments detected.\n\n${duplicateMessage}`);
         return false;
     }
     return true;
@@ -160,7 +157,7 @@ function displayResults(seatAssignments, reservedNames) {
 
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = <span>${displayName}</span><span>${seat}</span>; // Format seat and student name
+        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`; // Format seat and student name
 
         // Alternate between columns for better layout
         if (index % 2 === 0) {
@@ -178,16 +175,6 @@ function displayResults(seatAssignments, reservedNames) {
     resultDiv.appendChild(container);
 }
 
-// Function to display the unused seats
-function displayUnusedSeats(totalSeats, seatAssignments) {
-    const assignedSeats = new Set(Object.values(seatAssignments));
-    const unusedSeats = Array.from({ length: totalSeats }, (_, i) => i + 1).filter(seat => !assignedSeats.has(seat));
-
-    const unusedSeatsDiv = document.createElement('div');
-    unusedSeatsDiv.innerHTML = <h2>Unused Seats</h2><p>${unusedSeats.join(', ')}</p>;
-    document.getElementById('result').appendChild(unusedSeatsDiv);
-}
-
 // Function to handle printing of the results in a styled format
 function printResults() {
     const resultDiv = document.getElementById('result');
@@ -198,7 +185,7 @@ function printResults() {
     printWindow.document.write('<style>');
     printWindow.document.write(`
 
-         /CSS styling for the printed version of the seat assignments table/
+         /*CSS styling for the printed version of the seat assignments table*/
          
         body {
             font-family: 'Roboto', sans-serif;
@@ -221,3 +208,55 @@ function printResults() {
             text-align: left;
         }
         .container-columns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            width: 55%;
+            
+        }
+        .seat-pair {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .column .seat-pair:nth-child(odd) {
+            background-color: #ffdab4;
+            -webkit-print-color-adjust: exact;
+        }
+        .column .seat-pair:nth-child(even) {
+            background-color: #fff3e6;
+            -webkit-print-color-adjust: exact;
+        }
+        .seat-pair span {
+            margin-right: 25px;
+            margin-left: 20px;
+        }
+
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .column {
+                background-color: #fff;
+            }
+            .column .seat-pair:nth-child(odd) {
+                background-color: #ffdab4;
+            }
+            .column .seat-pair:nth-child(even) {
+                background-color: #fff3e6;
+            }
+        }
+    `);
+    printWindow.document.write('</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(resultDiv.innerHTML); // Copy result to print window
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print(); // Trigger print dialog
+}
