@@ -1,4 +1,4 @@
-// Main function to assign seats to students JOOJ
+// Main function to assign seats to students
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
@@ -85,32 +85,18 @@ function shuffleArray(array) {
 
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
-    const avoidanceSeats = new Set();
-
-    // For each reserved seat, avoid adjacent seats
-    reservedSeats.forEach(seat => {
-        if (seat > 1) avoidanceSeats.add(seat - 1); // Avoid left adjacent
-        if (seat < seats.length) avoidanceSeats.add(seat + 1); // Avoid right adjacent
-    });
-
-    // Prioritize seats that are not adjacent to reserved ones
-    const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
-    const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
-
-    // Combine both arrays to maximize distribution across available seats
-    const allAvailableSeats = [...prioritizedSeats, ...fallbackSeats];
-
-    // Distribute seats across students by evenly picking seats from the list
     const distributedSeats = [];
-    let seatIndex = 0;
+    const seatSpacing = Math.floor(seats.length / count); // Calculate approximate spacing between assigned seats
 
-    // Try to evenly space out the assigned seats across the available seats
-    while (distributedSeats.length < count) {
-        if (seatIndex >= allAvailableSeats.length) {
-            seatIndex = 0; // Loop around if we exhaust the seats
+    let index = 0;
+    for (let i = 0; i < count; i++) {
+        while (index < seats.length && reservedSeats.includes(seats[index])) {
+            index++; // Skip reserved seats
         }
-        distributedSeats.push(allAvailableSeats[seatIndex]);
-        seatIndex += Math.max(1, Math.floor(allAvailableSeats.length / count)); // Increase the gap if needed
+        if (index < seats.length) {
+            distributedSeats.push(seats[index]); // Assign the seat
+            index += seatSpacing; // Move to the next approximate seat position
+        }
     }
 
     return distributedSeats;
