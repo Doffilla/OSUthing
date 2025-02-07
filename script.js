@@ -83,45 +83,34 @@ function shuffleArray(array) {
     }
 }
 
-// Function to distribute available seats evenly across students while avoiding adjacent seats
+// Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
-    // Step 1: Mark reserved seats and adjacent seats as unavailable
-    const unavailableSeats = new Set();
+    const avoidanceSeats = new Set();
 
+    // For each reserved seat, avoid adjacent seats
     reservedSeats.forEach(seat => {
-        if (seat > 1) unavailableSeats.add(seat - 1); // Seat before
-        if (seat < seats.length) unavailableSeats.add(seat + 1); // Seat after
-        unavailableSeats.add(seat); // The reserved seat itself
+        if (seat > 1) avoidanceSeats.add(seat - 1); // Avoid left adjacent
+        if (seat < seats.length) avoidanceSeats.add(seat + 1); // Avoid right adjacent
     });
 
-    // Step 2: Identify available seats (those not reserved or adjacent)
-    const availableSeats = seats.filter(seat => !unavailableSeats.has(seat));
+    // Prioritize seats that are not adjacent to reserved ones
+    const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
+    const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
 
-    // Step 3: If there aren't enough available seats for all students, show an error
-    if (availableSeats.length < count) {
-        alert('Not enough seats for all students.');
-        return [];
-    }
+    // Combine both arrays to maximize distribution across available seats
+    const allAvailableSeats = [...prioritizedSeats, ...fallbackSeats];
 
-    // Step 4: Distribute students to maximize distance between them
+    // Distribute seats across students by evenly picking seats from the list
     const distributedSeats = [];
-    let index = 0;
-    let step = Math.ceil(availableSeats.length / count);
+    let seatIndex = 0;
 
-    // Loop to assign students to seats with maximum possible distance
+    // Try to evenly space out the assigned seats across the available seats
     while (distributedSeats.length < count) {
-        // If the seat is not already assigned, assign it
-        if (!distributedSeats.includes(availableSeats[index])) {
-            distributedSeats.push(availableSeats[index]);
+        if (seatIndex >= allAvailableSeats.length) {
+            seatIndex = 0; // Loop around if we exhaust the seats
         }
-
-        // Increase the index to step forward, ensuring we distribute the students
-        index += step;
-
-        // Ensure index does not exceed availableSeats length
-        if (index >= availableSeats.length) {
-            index = availableSeats.length - 1;
-        }
+        distributedSeats.push(allAvailableSeats[seatIndex]);
+        seatIndex += Math.max(1, Math.floor(allAvailableSeats.length / count)); // Increase the gap if needed
     }
 
     return distributedSeats;
