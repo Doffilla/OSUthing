@@ -83,7 +83,7 @@ function shuffleArray(array) {
     }
 }
 
-// Function to distribute available seats evenly across students while avoiding reserved seats
+// Function to distribute available seats evenly across students while avoiding adjacent seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
     // Step 1: Mark reserved seats and adjacent seats as unavailable
     const unavailableSeats = new Set();
@@ -106,20 +106,27 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
     // Step 4: Distribute students to maximize distance between them
     const distributedSeats = [];
     let index = 0;
+    let step = Math.ceil(availableSeats.length / count);
 
-    // Try to distribute the seats starting from the first available seat
+    // Loop to assign students to seats with maximum possible distance
     while (distributedSeats.length < count) {
-        // Try to find a seat with the largest gap (spread out seating)
+        // If the seat is not already assigned, assign it
         if (!distributedSeats.includes(availableSeats[index])) {
             distributedSeats.push(availableSeats[index]);
         }
 
-        // Move the index forward, trying to pick seats further apart
-        index = (index + Math.ceil(availableSeats.length / count)) % availableSeats.length; // Spread students further apart
+        // Increase the index to step forward, ensuring we distribute the students
+        index += step;
+
+        // Ensure index does not exceed availableSeats length
+        if (index >= availableSeats.length) {
+            index = availableSeats.length - 1;
+        }
     }
 
     return distributedSeats;
 }
+
 // Function to validate that no seat is assigned to more than one person
 function validateSeatAssignments(seatAssignments) {
     const assignedSeats = Object.values(seatAssignments); // Extract all assigned seat numbers
