@@ -50,7 +50,7 @@ function assignSeats() {
     }
 
     // Distribute seats evenly for unassigned students, avoiding reserved seats
-    const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length, Object.values(reservedSeats));
+    const evenlyDistributedSeats = distributeSeatsEvenly(totalSeats, unassignedStudents.length, Object.values(reservedSeats));
 
     // Randomize seat assignments for unassigned students
     shuffleArray(evenlyDistributedSeats);
@@ -85,6 +85,7 @@ function shuffleArray(array) {
 
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
+    
     const distributedSeats = [];
     
     // Ensure we don't exceed the number of available seats
