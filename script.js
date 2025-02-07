@@ -1,4 +1,4 @@
-// Main function to assign seats to students
+/ Main function to assign seats to students
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
@@ -20,11 +20,11 @@ function assignSeats() {
 
         // Validate seat assignment
         if (isNaN(seatNumber)) {
-            alert(`${name}'s name is in the reserved seat list but no seat was specified.`); // Alert if seat number is missing
+            alert(${name}'s name is in the reserved seat list but no seat was specified.); // Alert if seat number is missing
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
+            alert(Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.);
             return; // Alert if the seat number is out of range
         }
 
@@ -50,7 +50,7 @@ function assignSeats() {
     }
 
     // Distribute seats evenly for unassigned students, avoiding reserved seats
-    const evenlyDistributedSeats = distributeSeatsEvenly(totalSeats, unassignedStudents.length, Object.values(reservedSeats));
+    const evenlyDistributedSeats = distributeSeatsEvenly(availableSeats, unassignedStudents.length, Object.values(reservedSeats));
 
     // Randomize seat assignments for unassigned students
     shuffleArray(evenlyDistributedSeats);
@@ -85,7 +85,6 @@ function shuffleArray(array) {
 
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
-    
     const distributedSeats = [];
     
     // Ensure we don't exceed the number of available seats
@@ -120,9 +119,9 @@ function validateSeatAssignments(seatAssignments) {
 
     if (duplicateSeats.length > 0) {
         const duplicateMessage = duplicateSeats
-            .map(([seat, count]) => `Seat ${seat} is assigned to ${count} people.`)
+            .map(([seat, count]) => Seat ${seat} is assigned to ${count} people.)
             .join('\n');
-        alert(`Error: Duplicate seat assignments detected.\n\n${duplicateMessage}`);
+        alert(Error: Duplicate seat assignments detected.\n\n${duplicateMessage});
         return false;
     }
     return true;
@@ -152,7 +151,7 @@ function displayResults(seatAssignments, reservedNames) {
 
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`; // Format seat and student name
+        seatPair.innerHTML = <span>${displayName}</span><span>${seat}</span>; // Format seat and student name
 
         // Alternate between columns for better layout
         if (index % 2 === 0) {
@@ -178,7 +177,7 @@ function printResults() {
     // Write HTML structure for the print version of the seat assignments
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
     printWindow.document.write('<style>');
-    printWindow.document.write(`
+    printWindow.document.write(
 
          /*CSS styling for the printed version of the seat assignments table*/
          
@@ -247,7 +246,7 @@ function printResults() {
                 background-color: #fff3e6;
             }
         }
-    `);
+    );
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML); // Copy result to print window
