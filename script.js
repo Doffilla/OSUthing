@@ -92,21 +92,25 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
 
     // For each reserved seat, avoid adjacent seats
     reservedSeats.forEach(seat => {
-        if (seat > 1) avoidanceSeats.add(seat - 1);
-        if (seat < seats.length) avoidanceSeats.add(seat + 1);
+        if (seat > 1) avoidanceSeats.add(seat - 1); // Avoid seat before
+        if (seat < seats.length) avoidanceSeats.add(seat + 1); // Avoid seat after
     });
 
-    // Prioritize seats that are not adjacent to reserved ones
-    const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
-    const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
+    // Filter seats to only those that are not adjacent to reserved ones
+    const availableSeats = seats.filter(seat => !avoidanceSeats.has(seat));
+    
+    // Ensure that we have enough seats for the number of students
+    if (availableSeats.length < count) {
+        alert('Not enough seats for all students.');
+        return [];
+    }
 
-    // Calculate how many students to assign to each "chunk" of available seats
-    const step = Math.floor(prioritizedSeats.length / count) || 1;
+    // Spread the students out by selecting every 'step' seat
+    const step = Math.floor(availableSeats.length / count) || 1; // Adjust step size to avoid clumping
     const distributedSeats = [];
     
-    // Distribute seats across students
     for (let i = 0; i < count; i++) {
-        const seat = prioritizedSeats[i * step] || fallbackSeats[i % fallbackSeats.length];
+        const seat = availableSeats[i * step] || availableSeats[availableSeats.length - 1]; // Ensure no out of bounds
         distributedSeats.push(seat);
     }
     return distributedSeats;
