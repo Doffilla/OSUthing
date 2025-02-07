@@ -1,4 +1,4 @@
-// Main function to assign seats to students
+// Main function to assign seats to students JOOJ
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
@@ -87,32 +87,38 @@ function shuffleArray(array) {
 function distributeSeatsEvenly(seats, count, reservedSeats) {
     const avoidanceSeats = new Set();
 
-    // For each reserved seat, avoid adjacent seats
+    // Mark reserved seats and their adjacent seats to avoid
     reservedSeats.forEach(seat => {
         if (seat > 1) avoidanceSeats.add(seat - 1); // Avoid seat before
         if (seat < seats.length) avoidanceSeats.add(seat + 1); // Avoid seat after
+        avoidanceSeats.add(seat); // Avoid the reserved seat itself
     });
 
     // Filter seats to only those that are not adjacent to reserved ones
     const availableSeats = seats.filter(seat => !avoidanceSeats.has(seat));
-    
-    // Ensure that we have enough seats for the number of students
+
+    // Ensure we have enough available seats for the students
     if (availableSeats.length < count) {
         alert('Not enough seats for all students.');
         return [];
     }
 
-    // Spread the students out by selecting every 'step' seat
-    const step = Math.floor(availableSeats.length / count) || 1; // Adjust step size to avoid clumping
     const distributedSeats = [];
-    
-    for (let i = 0; i < count; i++) {
-        const seat = availableSeats[i * step] || availableSeats[availableSeats.length - 1]; // Ensure no out of bounds
-        distributedSeats.push(seat);
+    let index = 0;
+
+    // Try to distribute students by leaving large gaps between them
+    while (distributedSeats.length < count) {
+        // Loop over available seats in a way that maximizes spacing
+        if (!distributedSeats.includes(availableSeats[index])) {
+            distributedSeats.push(availableSeats[index]);
+        }
+
+        // Move the index forward and make sure to skip seats we already assigned
+        index = (index + 2) % availableSeats.length;  // Skip 1 seat forward each time
     }
+
     return distributedSeats;
 }
-
 // Function to validate that no seat is assigned to more than one person
 function validateSeatAssignments(seatAssignments) {
     const assignedSeats = Object.values(seatAssignments); // Extract all assigned seat numbers
