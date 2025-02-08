@@ -93,7 +93,7 @@ function distributeSeatsEvenly(seats, count, reservedSeats) {
 
     let index = 0;
     for (let i = 0; i < count; i++) {
-        while (reservedSeats.includes(seats[index])) {
+        while (index < seats.lenght() && reservedSeats.includes(seats[index])) {
             index++; // Skip reserved seats
         }
         if (index < seats.length) {
