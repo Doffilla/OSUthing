@@ -1,4 +1,4 @@
-/ Main function to assign seats to students
+/ Main function to assign seats to students JOOJ
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
