@@ -1,4 +1,4 @@
-/ Main function to assign seats to students JOOJ
+// Main function to assign seats to students
 function assignSeats() {
     // Get and clean up the list of student names entered in the text area
     const studentNames = [...new Set(
@@ -12,7 +12,7 @@ function assignSeats() {
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {}; // Will hold the reserved seat assignments (name -> seat number)
     const reservedNames = []; // Will track names already assigned to reserved seats
-
+    
     // Process each reserved seat entry (name: seat)
     for (const entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim()); // Split name and seat
@@ -197,10 +197,9 @@ function printResults() {
     // Write HTML structure for the print version of the seat assignments
     printWindow.document.write('<html><head><title>Seat Assignments</title>');
     printWindow.document.write('<style>');
-    printWindow.document.write(
+    printWindow.document.write(`
 
-         /*CSS styling for the printed version of the seat assignments table*/
-         
+         /CSS styling for the printed version of the seat assignments table/
         body {
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
@@ -266,7 +265,7 @@ function printResults() {
                 background-color: #fff3e6;
             }
         }
-    );
+    `);
     printWindow.document.write('</style>');
     printWindow.document.write('</head><body>');
     printWindow.document.write(resultDiv.innerHTML); // Copy result to print window
