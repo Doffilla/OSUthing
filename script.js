@@ -85,25 +85,45 @@ function shuffleArray(array) {
 
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
-    const distributedSeats = [];
-    
-    // Ensure we don't exceed the number of available seats
-    let step = Math.floor(seats.length / count);
-    if (step < 1) step = 1;  // Prevent infinite loop if more students than seats
-
-    let index = 0;
-    for (let i = 0; i < count; i++) {
-        while (index < seats.lenght() && reservedSeats.includes(seats[index])) {
-            index++; // Skip reserved seats
-        }
-        if (index < seats.length) {
-            distributedSeats.push(seats[index]); // Assign the seat
-            index += step; // Move to the next seat position
-        } else {
-            break; // Stop if we run out of seats
-        }
+    let avoidanceSeats = [];
+    // console.log("Reserved Seats: ", reservedSeats);
+    // For each reserved seat, avoid adjacent seats
+    reservedSeats.forEach(seat => {
+        if (seat > 1) avoidanceSeats.push(seat - 1);
+        if (seat < seats.length) avoidanceSeats.push(seat + 1);
+    });
+    avoidanceSeats = avoidanceSeats.filter(seat => !reservedSeats.includes(seat));
+    // Prioritize seats that are not adjacent to reserved ones
+    const notAvoidanceSeats = seats.filter(seat => !avoidanceSeats.includes(seat));
+    // console.log("Not Avoided Seats: ", notAvoidanceSeats);
+    // Calculate how many students to assign to each "chunk" of available seats
+    const step = Math.floor(notAvoidanceSeats.length / count) < 2 ? 2 : Math.floor(notAvoidanceSeats.length / count);
+    // console.log("Avoidance Seats: ", avoidanceSeats);
+    //console.log("Reserved Seats: ", reservedSeats);
+    let prioritizedSeats = []
+    for (let i = 0; i < step; i++) {
+        let newArray = notAvoidanceSeats.filter(seat => (seat % step === i));
+        prioritizedSeats = prioritizedSeats.concat(newArray);
     }
 
+    const distributedSeats = [];
+    
+    // Distribute seats across students
+    for (let i = 0; i < prioritizedSeats.length; i++) {
+        const seat = prioritizedSeats[i];
+        distributedSeats.push(seat);
+    }
+    if (distributedSeats.length < count) {
+        for (let i = 0; i < avoidanceSeats.length; i+=2) {
+            distributedSeats.push(avoidanceSeats[i]);
+        }
+    }
+    if (distributedSeats.length < count) {
+        for (let i = 1; i < avoidanceSeats.length; i+=2) {
+            distributedSeats.push(avoidanceSeats[i]);
+        }
+    }
+    //console.log("Distributed Seats: ", distributedSeats);
     return distributedSeats;
 }
 
