@@ -12,7 +12,7 @@ function assignSeats() {
     const reservedSeatsInput = document.getElementById('reservedSeats').value.trim().split('\n').map(entry => entry.trim()).filter(entry => entry);
     const reservedSeats = {}; // Will hold the reserved seat assignments (name -> seat number)
     const reservedNames = []; // Will track names already assigned to reserved seats
-    
+
     // Process each reserved seat entry (name: seat)
     for (const entry of reservedSeatsInput) {
         const [name, seat] = entry.split(':').map(item => item.trim()); // Split name and seat
@@ -20,11 +20,11 @@ function assignSeats() {
 
         // Validate seat assignment
         if (isNaN(seatNumber)) {
-            alert(${name}'s name is in the reserved seat list but no seat was specified.); // Alert if seat number is missing
+            alert(`${name}'s name is in the reserved seat list but no seat was specified.`); // Alert if seat number is missing
             return;
         }
         if (seatNumber < 1 || seatNumber > totalSeats) {
-            alert(Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.);
+            alert(`Invalid seat assignment: "${name}" is assigned to seat ${seatNumber}, but there are only ${totalSeats} seats available.`);
             return; // Alert if the seat number is out of range
         }
 
@@ -85,45 +85,27 @@ function shuffleArray(array) {
 
 // Function to distribute available seats evenly across students while avoiding reserved seats
 function distributeSeatsEvenly(seats, count, reservedSeats) {
-    let avoidanceSeats = [];
-    // console.log("Reserved Seats: ", reservedSeats);
+    const avoidanceSeats = new Set();
+
     // For each reserved seat, avoid adjacent seats
     reservedSeats.forEach(seat => {
-        if (seat > 1) avoidanceSeats.push(seat - 1);
-        if (seat < seats.length) avoidanceSeats.push(seat + 1);
+        if (seat > 1) avoidanceSeats.add(seat - 1);
+        if (seat < seats.length) avoidanceSeats.add(seat + 1);
     });
-    avoidanceSeats = avoidanceSeats.filter(seat => !reservedSeats.includes(seat));
-    // Prioritize seats that are not adjacent to reserved ones
-    const notAvoidanceSeats = seats.filter(seat => !avoidanceSeats.includes(seat));
-    // console.log("Not Avoided Seats: ", notAvoidanceSeats);
-    // Calculate how many students to assign to each "chunk" of available seats
-    const step = Math.floor(notAvoidanceSeats.length / count) < 2 ? 2 : Math.floor(notAvoidanceSeats.length / count);
-    // console.log("Avoidance Seats: ", avoidanceSeats);
-    //console.log("Reserved Seats: ", reservedSeats);
-    let prioritizedSeats = []
-    for (let i = 0; i < step; i++) {
-        let newArray = notAvoidanceSeats.filter(seat => (seat % step === i));
-        prioritizedSeats = prioritizedSeats.concat(newArray);
-    }
 
+    // Prioritize seats that are not adjacent to reserved ones
+    const prioritizedSeats = seats.filter(seat => !avoidanceSeats.has(seat));
+    const fallbackSeats = seats.filter(seat => avoidanceSeats.has(seat));
+
+    // Calculate how many students to assign to each "chunk" of available seats
+    const step = Math.floor(prioritizedSeats.length / count) || 1;
     const distributedSeats = [];
     
     // Distribute seats across students
-    for (let i = 0; i < prioritizedSeats.length; i++) {
-        const seat = prioritizedSeats[i];
+    for (let i = 0; i < count; i++) {
+        const seat = prioritizedSeats[i * step] || fallbackSeats[i % fallbackSeats.length];
         distributedSeats.push(seat);
     }
-    if (distributedSeats.length < count) {
-        for (let i = 0; i < avoidanceSeats.length; i+=2) {
-            distributedSeats.push(avoidanceSeats[i]);
-        }
-    }
-    if (distributedSeats.length < count) {
-        for (let i = 1; i < avoidanceSeats.length; i+=2) {
-            distributedSeats.push(avoidanceSeats[i]);
-        }
-    }
-    //console.log("Distributed Seats: ", distributedSeats);
     return distributedSeats;
 }
 
@@ -139,9 +121,9 @@ function validateSeatAssignments(seatAssignments) {
 
     if (duplicateSeats.length > 0) {
         const duplicateMessage = duplicateSeats
-            .map(([seat, count]) => Seat ${seat} is assigned to ${count} people.)
+            .map(([seat, count]) => `Seat ${seat} is assigned to ${count} people.`)
             .join('\n');
-        alert(Error: Duplicate seat assignments detected.\n\n${duplicateMessage});
+        alert(`Error: Duplicate seat assignments detected.\n\n${duplicateMessage}`);
         return false;
     }
     return true;
@@ -171,7 +153,7 @@ function displayResults(seatAssignments, reservedNames) {
 
         const seatPair = document.createElement('div');
         seatPair.classList.add('seat-pair');
-        seatPair.innerHTML = <span>${displayName}</span><span>${seat}</span>; // Format seat and student name
+        seatPair.innerHTML = `<span>${displayName}</span><span>${seat}</span>`; // Format seat and student name
 
         // Alternate between columns for better layout
         if (index % 2 === 0) {
@@ -199,7 +181,8 @@ function printResults() {
     printWindow.document.write('<style>');
     printWindow.document.write(`
 
-         /CSS styling for the printed version of the seat assignments table/
+         /*CSS styling for the printed version of the seat assignments table*/
+         
         body {
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
